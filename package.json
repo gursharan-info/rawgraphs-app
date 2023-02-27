@@ -3,6 +3,7 @@
   "homepage": "https://app.rawgraphs.io",
   "version": "2.0.0-beta.13",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@rawgraphs/rawgraphs-calendar-heatmap": "^1.0.0-beta.5",
     "@rawgraphs/rawgraphs-charts": "^1.0.0-beta.27",
@@ -34,7 +35,9 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.0.3",
     "react-icons": "^3.10.0",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "^4.0.3",
+    "sass": "^1.56.1",
     "sparql-http-client": "^2.4.0",
     "sparqljs": "^3.5.1",
     "typeface-inter": "^3.12.0",
@@ -42,7 +45,7 @@
   },
   "scripts": {
     "format": "prettier --write src",
-    "start": "react-scripts start",
+    "start": "PORT=3002 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -63,10 +66,17 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^4.14.1",
     "prettier": "^2.1.2"
   },
   "engines": {
     "node": "^14"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.esm.js"
+      }
+    }
   }
 }

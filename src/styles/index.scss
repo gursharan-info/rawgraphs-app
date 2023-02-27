@@ -1,8 +1,8 @@
 // Variables override
 $body-bg: #f5f8fa;
 $theme-colors: (
-  'primary': #4bc06a,
-  'success': #4bc06a,
+  'primary': rgb(59 130 246),
+  'success': rgb(8, 88, 216),
   'warning': #e7b332,
   'danger': #d04949,
   'light': #d8d8d8,
@@ -15,7 +15,7 @@ $font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 
 :root {
   --gray-bg: rgb(245 248 250);
-  --primary-lighter: #defff0;
+  --primary-lighter: rgb(118, 170, 255);
   --warning-lighter: #fff8c6;
   --gray-100: #f8f8f8;
   --gray-200: #dee1e2;

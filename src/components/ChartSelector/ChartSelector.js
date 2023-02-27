@@ -1,8 +1,10 @@
-import React, { useState, useMemo, useCallback } from 'react'
+// import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo} from 'react'
 import classNames from 'classnames'
-import { Row, Col, Card, Dropdown } from 'react-bootstrap'
-import { BsLink, BsPlus } from 'react-icons/bs'
-import uniq from 'lodash/uniq'
+import { Row, Col, Card } from 'react-bootstrap'
+// import { Row, Col, Card, Dropdown } from 'react-bootstrap'
+// import { BsLink, BsPlus } from 'react-icons/bs'
+// import uniq from 'lodash/uniq'
 import styles from './ChartSelector.module.scss'
 import { BsFillTrashFill } from 'react-icons/bs'
 
@@ -17,7 +19,7 @@ function ChartSelector({
   currentChart,
   setCurrentChart,
   onRemoveCustomChart,
-  onAddChartClick,
+  // onAddChartClick,
 }) {
   const [filter, setFilter] = useState('All charts')
 
@@ -25,20 +27,20 @@ function ChartSelector({
     return filterCharts(availableCharts, filter)
   }, [availableCharts, filter])
 
-  const handleFilterChange = useCallback(
-    (nextFilter) => {
-      setFilter(nextFilter)
-      const nextCharts = filterCharts(availableCharts, nextFilter)
-      if (nextCharts.indexOf(currentChart) === -1) {
-        setCurrentChart(nextCharts[0])
-      }
-    },
-    [availableCharts, currentChart, setCurrentChart]
-  )
+  // const handleFilterChange = useCallback(
+  //   (nextFilter) => {
+  //     setFilter(nextFilter)
+  //     const nextCharts = filterCharts(availableCharts, nextFilter)
+  //     if (nextCharts.indexOf(currentChart) === -1) {
+  //       setCurrentChart(nextCharts[0])
+  //     }
+  //   },
+  //   [availableCharts, currentChart, setCurrentChart]
+  // )
 
   return (
     <>
-      <Row>
+      {/* <Row>
         <Col className="text-right">
           Show
           <Dropdown className="d-inline-block ml-2 raw-dropdown">
@@ -64,9 +66,9 @@ function ChartSelector({
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
-        <Col xs={3} className="pt-3">
+        {/* <Col xs={3} className="pt-3">
           {currentChart && (
             <Card className={styles.currentChart}>
               <Card.Img variant="top" src={currentChart.metadata.thumbnail} />
@@ -101,7 +103,7 @@ function ChartSelector({
               </Card.Body>
             </Card>
           )}
-        </Col>
+        </Col> */}
         <Col>
           <Row>
             {charts.map((d, i) => {
@@ -169,7 +171,7 @@ function ChartSelector({
                 </Col>
               )
             })}
-            <Col xs={4} className={`p-3`}>
+            {/* <Col xs={4} className={`p-3`}>
               <Card
                 onClick={() => {
                   onAddChartClick()
@@ -187,7 +189,7 @@ function ChartSelector({
                   </Card.Title>
                 </Card.Body>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </Col>
       </Row>

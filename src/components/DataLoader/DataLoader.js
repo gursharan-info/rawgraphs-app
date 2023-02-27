@@ -4,27 +4,27 @@ import { Col, Row } from 'react-bootstrap'
 import {
   BsArrowCounterclockwise,
   BsArrowRepeat,
-  BsClipboard,
-  BsCloud,
-  BsFolder,
-  BsGift,
+  // BsClipboard,
+  // BsCloud,
+  // BsFolder,
+  // BsGift,
   BsSearch,
   BsUpload,
 } from 'react-icons/bs'
 import { DATA_LOADER_MODE } from '../../hooks/useDataLoader'
 import DataGrid from '../DataGrid/DataGrid'
-import DataSamples from '../DataSamples/DataSamples'
+// import DataSamples from '../DataSamples/DataSamples'
 import JsonViewer from '../JsonViewer'
 import ParsingOptions from '../ParsingOptions'
 import styles from './DataLoader.module.scss'
-import LoadProject from './loaders/LoadProject'
-import Paste from './loaders/Paste'
+// import LoadProject from './loaders/LoadProject'
+// import Paste from './loaders/Paste'
 import UploadFile from './loaders/UploadFile'
 import UrlFetch from './loaders/UrlFetch'
 import Loading from './loading'
 import WarningMessage from '../WarningMessage'
 import DataMismatchModal from './DataMismatchModal'
-import SparqlFetch from './loaders/SparqlFetch'
+// import SparqlFetch from './loaders/SparqlFetch'
 import { tsvFormat } from 'd3-dsv'
 import { CopyToClipboardButton } from '../CopyToClipboardButton'
 
@@ -61,22 +61,72 @@ function DataLoader({
   hydrateFromProject,
 }) {
   const [loadingError, setLoadingError] = useState()
-  const [initialOptionState, setInitialOptionState] = useState(null)
+  const [initialOptionState, setInitialOptionState] = useState('url')
 
   const options = [
+    // {
+    //   id: 'paste',
+    //   name: 'Paste your data',
+    //   loader: (
+    //     <Paste
+    //       userInput={userInput}
+    //       setUserInput={(rawInput) => setUserInput(rawInput, { type: 'paste' })}
+    //       setLoadingError={setLoadingError}
+    //     />
+    //   ),
+    //   message:
+    //     'Copy and paste your data from other applications or websites. You can use tabular (TSV, CSV, DSV) or JSON data.',
+    //   icon: BsClipboard,
+    //   allowedForReplace: true,
+    // },
+    // {
+    //   id: 'sample',
+    //   name: 'Try our data samples',
+    //   message: '',
+    //   loader: (
+    //     <DataSamples
+    //       onSampleReady={loadSample}
+    //       setLoadingError={setLoadingError}
+    //     />
+    //   ),
+    //   icon: BsGift,
+    //   allowedForReplace: true,
+    // },
+    // {
+    //   id: 'sparql',
+    //   name: 'SPARQL query',
+    //   message: 'Load data with a SparQL query',
+    //   loader: (
+    //     <SparqlFetch
+    //       userInput={userInput}
+    //       setUserInput={(rawInput, source) => setUserInput(rawInput, source)}
+    //       setLoadingError={setLoadingError}
+    //       initialState={
+    //         initialOptionState?.type === 'sparql' ? initialOptionState : null
+    //       }
+    //     />
+    //   ),
+    //   icon: BsCloud,
+    //   disabled: false,
+    //   allowedForReplace: true,
+    // },
     {
-      id: 'paste',
-      name: 'Paste your data',
+      id: 'url',
+      name: 'From URL',
+      message:
+        '',
       loader: (
-        <Paste
+        <UrlFetch
           userInput={userInput}
-          setUserInput={(rawInput) => setUserInput(rawInput, { type: 'paste' })}
+          setUserInput={(rawInput, source) => setUserInput(rawInput, source)}
           setLoadingError={setLoadingError}
+          initialState={
+            initialOptionState?.type === 'url' ? initialOptionState : null
+          }
         />
       ),
-      message:
-        'Copy and paste your data from other applications or websites. You can use tabular (TSV, CSV, DSV) or JSON data.',
-      icon: BsClipboard,
+      icon: BsSearch,
+      disabled: false,
       allowedForReplace: true,
     },
     {
@@ -95,69 +145,19 @@ function DataLoader({
       icon: BsUpload,
       allowedForReplace: true,
     },
-    {
-      id: 'sample',
-      name: 'Try our data samples',
-      message: '',
-      loader: (
-        <DataSamples
-          onSampleReady={loadSample}
-          setLoadingError={setLoadingError}
-        />
-      ),
-      icon: BsGift,
-      allowedForReplace: true,
-    },
-    {
-      id: 'sparql',
-      name: 'SPARQL query',
-      message: 'Load data with a SparQL query',
-      loader: (
-        <SparqlFetch
-          userInput={userInput}
-          setUserInput={(rawInput, source) => setUserInput(rawInput, source)}
-          setLoadingError={setLoadingError}
-          initialState={
-            initialOptionState?.type === 'sparql' ? initialOptionState : null
-          }
-        />
-      ),
-      icon: BsCloud,
-      disabled: false,
-      allowedForReplace: true,
-    },
-    {
-      id: 'url',
-      name: 'From URL',
-      message:
-        'Enter a web address (URL) pointing to the data (e.g. a public Dropbox file, a public API, ...). Please, be sure the server is CORS-enabled.',
-      loader: (
-        <UrlFetch
-          userInput={userInput}
-          setUserInput={(rawInput, source) => setUserInput(rawInput, source)}
-          setLoadingError={setLoadingError}
-          initialState={
-            initialOptionState?.type === 'url' ? initialOptionState : null
-          }
-        />
-      ),
-      icon: BsSearch,
-      disabled: false,
-      allowedForReplace: true,
-    },
-    {
-      id: 'project',
-      name: 'Open your project',
-      message: 'Load a .rawgraphs project.',
-      loader: (
-        <LoadProject
-          onProjectSelected={hydrateFromProject}
-          setLoadingError={setLoadingError}
-        />
-      ),
-      icon: BsFolder,
-      allowedForReplace: false,
-    },
+    // {
+    //   id: 'project',
+    //   name: 'Open your project',
+    //   message: 'Load a .rawgraphs project.',
+    //   loader: (
+    //     <LoadProject
+    //       onProjectSelected={hydrateFromProject}
+    //       setLoadingError={setLoadingError}
+    //     />
+    //   ),
+    //   icon: BsFolder,
+    //   allowedForReplace: false,
+    // },
   ]
   const [optionIndex, setOptionIndex] = useState(0)
   const selectedOption = options[optionIndex]

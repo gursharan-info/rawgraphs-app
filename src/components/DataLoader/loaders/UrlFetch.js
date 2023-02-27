@@ -1,12 +1,16 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useSearchParams } from 'react'
 import classNames from 'classnames'
 import S from './UrlFetch.module.scss'
+import { useLocation } from 'react-router-dom';
+
 
 export async function fetchData(source) {
   const response = await fetch(source.url)
   const text = await response.text()
-  return text
+  const json = JSON.parse(text).result.records
+  return JSON.stringify(json)
 }
+
 
 export default function UrlFetch({
   userInput,
@@ -14,8 +18,12 @@ export default function UrlFetch({
   setLoadingError,
   initialState = null,
 }) {
-  const [url, setUrl] = useState(initialState?.url)
+  const location = useLocation();
+  let {dataset_id} = (Object.fromEntries(new URLSearchParams(location.search)));
 
+  const [url, setUrl] = useState("http://10.0.96.105:5000/api/3/action/datastore_search?limit=100000&resource_id="+dataset_id)
+  // const [url, setUrl] = useState(initialState?.url)
+  console.log(url)
   const fetchUrl = useCallback(
     async (url) => {
       const source = { type: 'url', url }
@@ -40,10 +48,10 @@ export default function UrlFetch({
     },
     [url, fetchUrl]
   )
-
+  
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <input type="hidden"
         className={classNames('w-100', S['url-input'])}
         value={url}
         onChange={(e) => {
@@ -56,7 +64,7 @@ export default function UrlFetch({
           disabled={!url}
           type="submit"
         >
-          Load data
+          Get Data
         </button>
       </div>
     </form>
