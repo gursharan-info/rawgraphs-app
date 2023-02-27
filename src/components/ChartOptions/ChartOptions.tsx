@@ -6,15 +6,25 @@ import {
   getDefaultOptionsValues,
   getEnabledOptions,
   getTypeName,
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 } from '@rawgraphs/rawgraphs-core'
+// @ts-expect-error TS(6142): Module './ChartOptionTypes/ChartOptionNumber' was ... Remove this comment to see the full error message
 import ChartOptionNumber from './ChartOptionTypes/ChartOptionNumber'
+// @ts-expect-error TS(6142): Module './ChartOptionTypes/ChartOptionText' was re... Remove this comment to see the full error message
 import ChartOptionText from './ChartOptionTypes/ChartOptionText'
+// @ts-expect-error TS(6142): Module './ChartOptionTypes/ChartOptionColor' was r... Remove this comment to see the full error message
 import ChartOptionColor from './ChartOptionTypes/ChartOptionColor'
+// @ts-expect-error TS(6142): Module './ChartOptionTypes/ChartOptionColorScaleWr... Remove this comment to see the full error message
 import ChartOptionColorScaleWrapper from './ChartOptionTypes/ChartOptionColorScaleWrapper'
+// @ts-expect-error TS(6142): Module './ChartOptionTypes/ChartOptionBoolean' was... Remove this comment to see the full error message
 import ChartOptionBoolean from './ChartOptionTypes/ChartOptionBoolean'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import map from 'lodash/map'
+// @ts-expect-error TS(2307): Cannot find module './ChartOptions.module.scss' or... Remove this comment to see the full error message
 import styles from './ChartOptions.module.scss'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import omit from 'lodash/omit'
 
 const CHART_OPTION_COMPONENTS = {
@@ -25,7 +35,7 @@ const CHART_OPTION_COMPONENTS = {
   boolean: ChartOptionBoolean,
 }
 
-function getPartialMapping(mapping, dimension, repeatIndex) {
+function getPartialMapping(mapping: any, dimension: any, repeatIndex: any) {
   const nv = get(mapping[dimension], `value[${repeatIndex}]`)
   return {
     ...mapping,
@@ -36,7 +46,7 @@ function getPartialMapping(mapping, dimension, repeatIndex) {
   }
 }
 
-function getPartialMappedData(mappedData, dimension, repeatIndex) {
+function getPartialMappedData(mappedData: any, dimension: any, repeatIndex: any) {
   return Array.isArray(mappedData)
     ? mappedData.map((datum) => {
         const value = get(datum[dimension], `[${repeatIndex}]`)
@@ -48,7 +58,7 @@ function getPartialMappedData(mappedData, dimension, repeatIndex) {
     : mappedData
 }
 
-function getDefaultForRepeat(def, index) {
+function getDefaultForRepeat(def: any, index: any) {
   if (Array.isArray(def.repeatDefault)) {
     return get(def.repeatDefault, `[${index}]`, def.default)
   }
@@ -62,7 +72,8 @@ function WrapControlComponent({
   label,
   repeatIndex,
   ...props
-}) {
+}: any) {
+  // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const Component = CHART_OPTION_COMPONENTS[type]
 
   const remainingOptions = useMemo(() => {
@@ -136,10 +147,10 @@ function WrapControlComponent({
 
     if (props.mappedData) {
       return props.mappedData
-        .map((d) => get(d, props.dimension))
+        .map((d: any) => get(d, props.dimension))
         .filter(
-          (item) => item !== undefined && !(Array.isArray(item) && !item.length)
-        )
+          (item: any) => item !== undefined && !(Array.isArray(item) && !item.length)
+        );
     } else {
       return []
     }
@@ -147,7 +158,7 @@ function WrapControlComponent({
 
   const handleControlChange = useCallback(
     (nextValue) => {
-      setVisualOptions((visualOptions) => {
+      setVisualOptions((visualOptions: any) => {
         let newValue = nextValue
         if (repeatIndex !== undefined) {
           newValue = visualOptions[optionId] || []
@@ -163,6 +174,7 @@ function WrapControlComponent({
   )
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Component
       type={type}
       domainFromChart={domainFromChart}
@@ -172,6 +184,7 @@ function WrapControlComponent({
       optionId={optionId}
       label={
         repeatIndex !== undefined ? (
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <React.Fragment>
             {label} ({repeatIndex + 1})
           </React.Fragment>
@@ -200,8 +213,8 @@ const ChartOptions = ({
   visualOptions,
   setVisualOptions,
   error,
-  mappedData,
-}) => {
+  mappedData
+}: any) => {
   const optionsConfig = useMemo(() => {
     return getOptionsConfig(chart?.visualOptions)
   }, [chart])
@@ -211,6 +224,7 @@ const ChartOptions = ({
     for (const option in optionsConfig) {
       const group = optionsConfig[option].group
       if (!groups.hasOwnProperty(group)) {
+        // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         groups[group] = true
       }
     }
@@ -234,6 +248,7 @@ const ChartOptions = ({
     for (const option in optionsConfig) {
       const group = optionsConfig[option].group
       if (!groups.hasOwnProperty(group)) {
+        // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         groups[group] = group === 'artboard' ? false : true
       }
     }
@@ -241,9 +256,12 @@ const ChartOptions = ({
     return Object.keys(optionsConfig).reduce((acc, optionId) => {
       const option = optionsConfig[optionId]
       const group = option?.group || ''
+      // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       if (!acc[group]) {
+        // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         acc[group] = {}
       }
+      // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       acc[group][optionId] = option
       return acc
     }, {})
@@ -259,22 +277,30 @@ const ChartOptions = ({
   }, [mapping, optionsConfig, visualOptions])
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <div className={[styles['chart-options'], 'col-4', 'col-xl-3'].join(' ')}>
-      {map(optionsDefinitionsByGroup, (options, groupName) => {
+      {map(optionsDefinitionsByGroup, (options: any, groupName: any) => {
         return (
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <div
             key={groupName}
+            // @ts-expect-error TS(2322): Type '{ children: any[]; key: any; groupname: any;... Remove this comment to see the full error message
             groupname={groupName}
             className={[
               styles['options-group'],
+              // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               collapseStatus[groupName] ? styles['collapsed'] : '',
             ].join(' ')}
           >
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Row className="sticky-top">
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <Col
                 className={`d-flex justify-content-between align-items-center ${styles['group-header']}`}
               >
+                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <h5 className="text-uppercase m-0">{groupName}</h5>
+                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <span
                   className={[styles['collapse-button'], 'cursor-pointer'].join(
                     ' '
@@ -282,13 +308,14 @@ const ChartOptions = ({
                   onClick={() =>
                     setCollapseStatus({
                       ...collapseStatus,
+                      // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                       [groupName]: !collapseStatus[groupName],
                     })
                   }
                 ></span>
               </Col>
             </Row>
-            {map(options, (def, optionId) => {
+            {map(options, (def: any, optionId: any) => {
               // repeated options: notice that value is set to a default if undefined
               // this is caused by changes in shapes of the mapping object
               // (when a new value is dragged to the dimension that repeats the option)
@@ -298,7 +325,8 @@ const ChartOptions = ({
                   mapping,
                   `[${def.repeatFor}].value`,
                   []
-                ).map((v, repeatIndex) => (
+                ).map((v: any, repeatIndex: any) => (
+                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   <WrapControlComponent
                     className={styles['chart-option']}
                     key={optionId + repeatIndex}
@@ -333,6 +361,7 @@ const ChartOptions = ({
                   />
                 ))
               ) : (
+                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <WrapControlComponent
                   className={styles['chart-option']}
                   key={optionId}
@@ -351,19 +380,20 @@ const ChartOptions = ({
                   setVisualOptions={setVisualOptions}
                   isEnabled={enabledOptions[optionId]}
                 />
-              )
+              );
             })}
             {groupName === 'artboard' && visualOptions.showLegend && (
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <p className="small">
                 The final output will be {containerOptions?.width}px *{' '}
                 {containerOptions?.height}px including the legend.
               </p>
             )}
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
 export default ChartOptions

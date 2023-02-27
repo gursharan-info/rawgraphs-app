@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react'
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { chart as rawChart } from '@rawgraphs/rawgraphs-core'
 import useDebounce from '../../hooks/useDebounce'
 import WarningMessage from '../WarningMessage'
@@ -13,8 +14,8 @@ const ChartPreview = ({
   error,
   setError,
   setRawViz,
-  mappedData,
-}) => {
+  mappedData
+}: any) => {
   const domRef = useRef(null)
 
   const vizOptionsDebounced = useDebounce(visualOptions, 200)
@@ -24,7 +25,7 @@ const ChartPreview = ({
 
     // control required variables
     // need to create this array because the prop mapping does not return to {} when data is inserted and removed
-    const currentlyMapped = []
+    const currentlyMapped: any = []
     for (let variable in mapping) {
       if (mapping[variable].ids && mapping[variable].ids.length > 0) {
         currentlyMapped.push(variable)
@@ -32,21 +33,25 @@ const ChartPreview = ({
     }
 
     let requiredVariables = chart.dimensions.filter(
-      (d) => d.required && currentlyMapped.indexOf(d.id) === -1
+      (d: any) => d.required && currentlyMapped.indexOf(d.id) === -1
     )
 
     if (requiredVariables.length > 0) {
       let errorMessage = (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <span>
           Required chart variables: you need to map{' '}
           {requiredVariables
-            .map((d, i) => <span key={i} className="font-weight-bold">{d.name}</span>)
-            .reduce((prev, curr) => [prev, ' and ', curr])}
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            .map((d: any, i: any) => <span key={i} className="font-weight-bold">{d.name}</span>)
+            .reduce((prev: any, curr: any) => [prev, ' and ', curr])}
         </span>
       )
       setError({ variant: 'secondary', message: errorMessage })
       setRawViz(null)
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
       while (domRef.current.firstChild) {
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         domRef.current.removeChild(domRef.current.firstChild)
       }
       return
@@ -54,30 +59,33 @@ const ChartPreview = ({
 
     // control multiple required variables
     const multivaluesVariables = chart.dimensions.filter(
-      (d) =>
-        d.multiple &&
-        d.required &&
-        d.minValues &&
-        mapping[d.id].ids.length < d.minValues
+      (d: any) => d.multiple &&
+      d.required &&
+      d.minValues &&
+      mapping[d.id].ids.length < d.minValues
     )
     if (multivaluesVariables.length > 0) {
       let errorMessage = (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <span>
           Please map{' '}
           {multivaluesVariables
-            .map((d) => (
-              <>
-                at least <span className="font-weight-bold">{d.minValues}</span>{' '}
-                dimensions on <span className="font-weight-bold">{d.name}</span>
-              </>
-            ))
-            .reduce((prev, curr) => [prev, ' and ', curr])}
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            .map((d: any) => <>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            at least <span className="font-weight-bold">{d.minValues}</span>{' '}
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            dimensions on <span className="font-weight-bold">{d.name}</span>
+          </>)
+            .reduce((prev: any, curr: any) => [prev, ' and ', curr])}
           .
         </span>
       )
       setError({ variant: 'secondary', message: errorMessage })
       setRawViz(null)
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
       while (domRef.current.firstChild) {
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         domRef.current.removeChild(domRef.current.firstChild)
       }
       return
@@ -90,11 +98,13 @@ const ChartPreview = ({
         mapping[variable].ids.length > 0 &&
         !mapping[variable].isValid
       ) {
-        const variableObj = chart.dimensions.find((d) => d.id === variable)
+        const variableObj = chart.dimensions.find((d: any) => d.id === variable)
         const errorMessage = `Data-type mismatch: you can’t map ${mapping[variable].mappedType}s on ${variableObj.name}.`
         setError({ variant: 'danger', message: errorMessage })
         setRawViz(null)
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         while (domRef.current.firstChild) {
+          // @ts-expect-error TS(2531): Object is possibly 'null'.
           domRef.current.removeChild(domRef.current.firstChild)
         }
         return
@@ -104,7 +114,9 @@ const ChartPreview = ({
     if (!mappedData) {
       // console.info('Clearing viz')
       setRawViz(null)
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
       while (domRef.current.firstChild) {
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         domRef.current.removeChild(domRef.current.firstChild)
       }
       return
@@ -124,14 +136,18 @@ const ChartPreview = ({
         onChartRendered(chart.metadata)
       } catch (e) {
         console.log("chart error", e)
+        // @ts-expect-error TS(2571): Object is of type 'unknown'.
         setError({ variant: 'danger', message: 'Chart error. ' + e.message })
         setRawViz(null)
       }
     } catch (e) {
+      // @ts-expect-error TS(2531): Object is possibly 'null'.
       while (domRef.current.firstChild) {
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         domRef.current.removeChild(domRef.current.firstChild)
       }
       console.log({ e })
+      // @ts-expect-error TS(2571): Object is of type 'unknown'.
       setError({ variant: 'danger', message: 'Chart error. ' + e.message })
       setRawViz(null)
     }
@@ -139,14 +155,18 @@ const ChartPreview = ({
   }, [setError, vizOptionsDebounced, setRawViz, mappedData, chart, mapping])
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <div className={'col-8 col-xl-9'}>
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div
         className={['overflow-auto', 'position-sticky'].join(' ')}
         style={{ top: 'calc(15px + var(--header-height))' }}
       >
         {error && (
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <WarningMessage variant={error.variant} message={error.message} />
         )}
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div ref={domRef}>{/* Don't put content in this <div /> */}</div>
       </div>
     </div>

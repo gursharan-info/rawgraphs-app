@@ -1,10 +1,13 @@
 import React, { useRef } from 'react'
 import { Dropdown } from 'react-bootstrap'
 import classnames from 'classnames'
+// @ts-expect-error TS(2307): Cannot find module './DataMapping.module.scss' or ... Remove this comment to see the full error message
 import styles from './DataMapping.module.scss'
 import { BsX } from 'react-icons/bs'
 import { useDrag, useDrop } from 'react-dnd'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
+// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { AGGREGATIONS_LABELS } from '../../constants'
 
 export default function ChartDimensionItem({
@@ -17,18 +20,15 @@ export default function ChartDimensionItem({
   aggregators,
   relatedAggregation,
   onMove,
-
   onChangeAggregation,
   onDeleteItem,
   onChangeDimension,
-
   commitLocalMapping,
   rollbackLocalMapping,
   onInsertColumn,
   replaceDimension,
-
-  localMappding,
-}) {
+  localMappding
+}: any) {
   const ref = useRef(null)
 
   const [{ isOver }, drop] = useDrop({
@@ -52,16 +52,21 @@ export default function ChartDimensionItem({
       if (false && item.type === 'column') {
         onInsertColumn(hoverIndex, item)
         item.type = 'card'
+        // @ts-expect-error TS(2339): Property 'dimensionId' does not exist on type 'Dra... Remove this comment to see the full error message
         item.dimensionId = dimension.id
+        // @ts-expect-error TS(2339): Property 'index' does not exist on type 'DragObjec... Remove this comment to see the full error message
         item.index = hoverIndex
         return
+      // @ts-expect-error TS(2339): Property 'dimensionId' does not exist on type 'Dra... Remove this comment to see the full error message
       } else if (item.dimensionId === dimension.id) {
+        // @ts-expect-error TS(2339): Property 'index' does not exist on type 'DragObjec... Remove this comment to see the full error message
         const dragIndex = item.index
         // Don't replace items with themselves
         if (dragIndex === hoverIndex) {
           return
         }
         // Determine rectangle on screen
+        // @ts-expect-error TS(2339): Property 'getBoundingClientRect' does not exist on... Remove this comment to see the full error message
         const hoverBoundingRect = ref.current?.getBoundingClientRect()
         // Get vertical middle
         const hoverMiddleY =
@@ -69,6 +74,7 @@ export default function ChartDimensionItem({
         // Determine mouse position
         const clientOffset = monitor.getClientOffset()
         // Get pixels to the top
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         const hoverClientY = clientOffset.y - hoverBoundingRect.top
         // Only perform the move when the mouse has crossed half of the items height
         // When dragging downwards, only move when the cursor is below 50%
@@ -86,6 +92,7 @@ export default function ChartDimensionItem({
         // Generally it's better to avoid mutations,
         // but it's good here for the sake of performance
         // to avoid expensive index searches.
+        // @ts-expect-error TS(2339): Property 'index' does not exist on type 'DragObjec... Remove this comment to see the full error message
         item.index = hoverIndex
       } else {
         //#TODO: for now we allow only dropping on "drop another dimension here" in case of multiple dimensions
@@ -105,8 +112,10 @@ export default function ChartDimensionItem({
     drop: (item, monitor) => {
       if (!dimension.multiple) {
         if (item.type === 'column') {
+          // @ts-expect-error TS(2339): Property 'id' does not exist on type 'DragObjectWi... Remove this comment to see the full error message
           onChangeDimension(index, item.id)
         } else {
+          // @ts-expect-error TS(2339): Property 'dimensionId' does not exist on type 'Dra... Remove this comment to see the full error message
           replaceDimension(item.dimensionId, dimension.id, item.index, index)
         }
       }
@@ -131,6 +140,7 @@ export default function ChartDimensionItem({
   drag(drop(ref))
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <div
       ref={ref}
       style={{
@@ -147,39 +157,46 @@ export default function ChartDimensionItem({
         }
       )}
     >
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <span>
         {!!DataTypeIcon && (
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <DataTypeIcon className={styles['data-type-icon']} />
         )}
       </span>
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <span className={styles['column-title']}>{columnId}</span>
       {dimension.aggregation && (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Dropdown className="d-inline-block ml-2 raw-dropdown">
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Dropdown.Toggle
             variant={isValid ? 'primary' : 'danger'}
             className="pr-5"
           >
             {get(AGGREGATIONS_LABELS, relatedAggregation, relatedAggregation)}
           </Dropdown.Toggle>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Dropdown.Menu>
-            {aggregators.map((aggregatorName) => (
-              <Dropdown.Item
-                key={aggregatorName}
-                onClick={() => onChangeAggregation(index, aggregatorName)}
-              >
-                {get(AGGREGATIONS_LABELS, aggregatorName, aggregatorName)}
-              </Dropdown.Item>
-            ))}
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            {aggregators.map((aggregatorName: any) => <Dropdown.Item
+              key={aggregatorName}
+              onClick={() => onChangeAggregation(index, aggregatorName)}
+            >
+              {get(AGGREGATIONS_LABELS, aggregatorName, aggregatorName)}
+            </Dropdown.Item>)}
           </Dropdown.Menu>
         </Dropdown>
       )}
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <button
         className={styles['remove-assigned']}
         type="button"
         onClick={() => onDeleteItem(index)}
       >
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <BsX />
       </button>
     </div>
-  )
+  );
 }

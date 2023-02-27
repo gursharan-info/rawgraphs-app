@@ -1,54 +1,62 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { get, has } from "lodash"
 import charts from "./charts"
 
 export const VERSION = "1.1"
 
-function objectsToMatrix(listOfObjects, columns) {
-  return listOfObjects.map(obj => {
-    return columns.map(col => obj[col])
-  })
+function objectsToMatrix(listOfObjects: any, columns: any) {
+  return listOfObjects.map((obj: any) => {
+    return columns.map((col: any) => obj[col]);
+  });
 }
 
-function matrixToObjects(matrix, columns) {
-  return matrix.map(record => {
+function matrixToObjects(matrix: any, columns: any) {
+  return matrix.map((record: any) => {
     const obj = {}
     for (let i = 0; i < columns.length; i++) {
+      // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       obj[columns[i]] = record[i]
     }
     return obj
-  })
+  });
 }
 
 export function serializeProject(
-  userInput,
-  userData,
-  userDataType,
-  parseError,
-  unstackedData,
-  unstackedColumns,
-  data,
-  separator,
-  thousandsSeparator,
-  decimalsSeparator,
-  locale,
-  stackDimension,
-  dataSource,
-  currentChart,
-  mapping,
-  visualOptions,
+  userInput: any,
+  userData: any,
+  userDataType: any,
+  parseError: any,
+  unstackedData: any,
+  unstackedColumns: any,
+  data: any,
+  separator: any,
+  thousandsSeparator: any,
+  decimalsSeparator: any,
+  locale: any,
+  stackDimension: any,
+  dataSource: any,
+  currentChart: any,
+  mapping: any,
+  visualOptions: any,
 ) {
   const project = {
     version: VERSION,
   }
 
   /* First stage: user input */
+  // @ts-expect-error TS(2339): Property 'userInput' does not exist on type '{ ver... Remove this comment to see the full error message
   project.userInput = userInput
+  // @ts-expect-error TS(2339): Property 'userInputFormat' does not exist on type ... Remove this comment to see the full error message
   project.userInputFormat = userDataType
+  // @ts-expect-error TS(2339): Property 'dataSource' does not exist on type '{ ve... Remove this comment to see the full error message
   project.dataSource = dataSource
 
   /* Second stage: parsed */
+  // @ts-expect-error TS(2339): Property 'rawData' does not exist on type '{ versi... Remove this comment to see the full error message
   project.rawData = objectsToMatrix(userData, Object.keys(data.dataTypes))
+  // @ts-expect-error TS(2339): Property 'parseError' does not exist on type '{ ve... Remove this comment to see the full error message
   project.parseError = parseError
+  // @ts-expect-error TS(2339): Property 'parseOptions' does not exist on type '{ ... Remove this comment to see the full error message
   project.parseOptions = {
     separator,
     thousandsSeparator,
@@ -60,17 +68,21 @@ export function serializeProject(
   }
 
   /* Third stage: typed data ready for chart */
+  // @ts-expect-error TS(2339): Property 'dataTypes' does not exist on type '{ ver... Remove this comment to see the full error message
   project.dataTypes = data.dataTypes
 
   /* Chart: mapping and visual options */
+  // @ts-expect-error TS(2339): Property 'chart' does not exist on type '{ version... Remove this comment to see the full error message
   project.chart = currentChart.metadata.id
+  // @ts-expect-error TS(2339): Property 'mapping' does not exist on type '{ versi... Remove this comment to see the full error message
   project.mapping = mapping
+  // @ts-expect-error TS(2339): Property 'visualOptions' does not exist on type '{... Remove this comment to see the full error message
   project.visualOptions = visualOptions
 
   return project
 }
 
-function getOrError(object, path) {
+function getOrError(object: any, path: any) {
   if (!has(object, path)) {
     console.log("IMPORT ERROR", object, path)
     throw new Error("Selected project is not valid")
@@ -78,7 +90,7 @@ function getOrError(object, path) {
   return get(object, path)
 }
 
-export function deserializeProject(project) {
+export function deserializeProject(project: any) {
   if (project.version !== VERSION) {
     throw new Error("Invalid version number, please use a suitable deserializer")
   }

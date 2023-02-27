@@ -1,7 +1,9 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import { dsvFormat } from 'd3'
+// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { DefaultSeparator, separatorsList } from '../../constants'
 
-function JsonParser(dataString) {
+function JsonParser(dataString: any) {
   //Removing white lines (useful when pasting from sheets, ecc)
   const trimmedDataString = dataString
     .trim()
@@ -10,7 +12,7 @@ function JsonParser(dataString) {
   return [JSON.parse(trimmedDataString), {}]
 }
 
-function CsvParser(dataString, opts) {
+function CsvParser(dataString: any, opts: any) {
   //Removing white lines (useful when pasting from sheets, ecc)
   const trimmedDataString = dataString
     .trim()
@@ -53,7 +55,7 @@ function CsvParser(dataString, opts) {
 
 export const SparqlMarker = Symbol("RawgraphsSparqlMarker")
 
-function SparqlParser(data, opts) {
+function SparqlParser(data: any, opts: any) {
   if (data[SparqlMarker] === true) {
     return [data, {}]
   } 
@@ -66,7 +68,7 @@ const PARSERS = [
   { dataType: 'csv', parse: CsvParser },
 ]
 
-export function parseData(data, opts) {
+export function parseData(data: any, opts: any) {
   for (const parser of PARSERS) {
     try {
       const [parsed, extra] = parser.parse(data, opts)
@@ -78,7 +80,7 @@ export function parseData(data, opts) {
   return [null, null]
 }
 
-export function parseAndCheckData(dataString, opts) {
+export function parseAndCheckData(dataString: any, opts: any) {
   const [dataType, data, extra] = parseData(dataString, opts)
   if (dataType === null) {
     // This should never happen
@@ -99,17 +101,18 @@ export function parseAndCheckData(dataString, opts) {
   }
 }
 
-function isScalarType(item) {
+function isScalarType(item: any) {
   return ['string', 'number', 'boolean'].includes(typeof item)
 }
 
-export function normalizeJsonArray(jsonArray) {
+export function normalizeJsonArray(jsonArray: any) {
   return jsonArray
-    .map((element) => {
+    .map((element: any) => {
       let iterateElement = element
       if (Array.isArray(iterateElement)) {
         const tmp = {}
         iterateElement.forEach((item, i) => {
+          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           tmp[`Column ${i + 1}`] = item
         })
         iterateElement = tmp
@@ -122,19 +125,22 @@ export function normalizeJsonArray(jsonArray) {
         const value = iterateElement[property]
         const valueType = typeof value
         if (Array.isArray(value)) {
+          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           outElement[property] = value.filter(isScalarType).join(' ')
         } else if (valueType === 'object' && valueType !== null) {
           for (const nestedProperty in value) {
             const nestedValue = value[nestedProperty]
             if (isScalarType(nestedValue)) {
+              // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
               outElement[`${property}.${nestedProperty}`] = nestedValue
             }
           }
         } else if (isScalarType(value)) {
+          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           outElement[property] = value
         }
       }
       return outElement
     })
-    .filter((item) => item !== null)
+    .filter((item: any) => item !== null);
 }

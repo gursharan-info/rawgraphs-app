@@ -1,6 +1,9 @@
 /* eslint-disable no-restricted-globals */
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import * as d3 from 'd3'
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import * as rawgraphsCore from '@rawgraphs/rawgraphs-core'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'lru-... Remove this comment to see the full error message
 import LRU from 'lru-cache'
 
 export const NPM_CDN = 'https://cdn.jsdelivr.net/npm/'
@@ -13,7 +16,7 @@ export const NPM_CDN = 'https://cdn.jsdelivr.net/npm/'
  * }} ChartContract
  */
 
-const queue = []
+const queue: any = []
 const cacheChartsPkg = new LRU(50)
 const cacheDependenciesTree = new LRU(400)
 
@@ -27,8 +30,10 @@ const DEPENDENCIES_ALIAS = {
  *
  * @param {string} name
  */
-async function requireDependency(name) {
+async function requireDependency(name: any) {
+  // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (DEPENDENCIES_ALIAS[name]) {
+    // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return DEPENDENCIES_ALIAS[name]
   }
   let url
@@ -51,15 +56,15 @@ async function requireDependency(name) {
 /**
  * AMD Define for the DOM Context
  */
-function defineDOM(...params) {
+function defineDOM(...params: any[]) {
   /**
    * @type {(dependencies: string[]) void}
    */
-  let factory
+  let factory: any
   /**
    * @type string[]
    */
-  let dependencies
+  let dependencies: any
   // Adjust various AMD callding patterhns
   if (params.length < 2) {
     factory = params[0]
@@ -74,12 +79,11 @@ function defineDOM(...params) {
   // Instance dependencies
   const exports = {}
   const module = { exports }
-  const rutimeDepenciesPromises = dependencies.map((dep) =>
-    dep === 'exports'
-      ? Promise.resolve(exports)
-      : dep === 'module'
-      ? Promise.resolve(module)
-      : requireDependency(dep)
+  const rutimeDepenciesPromises = dependencies.map((dep: any) => dep === 'exports'
+    ? Promise.resolve(exports)
+    : dep === 'module'
+    ? Promise.resolve(module)
+    : requireDependency(dep)
   )
   queue.push(
     Promise.all(rutimeDepenciesPromises).then((rutimeDepencies) => {
@@ -106,8 +110,10 @@ defineDOM.amd = {}
  *
  * @param {string} name
  */
-function requireDependencyWebWorker(name) {
+function requireDependencyWebWorker(name: any) {
+  // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   if (DEPENDENCIES_ALIAS[name]) {
+    // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return DEPENDENCIES_ALIAS[name]
   }
   let url
@@ -130,7 +136,7 @@ function requireDependencyWebWorker(name) {
 /**
  * AMD Define for the WebWorker Context
  */
-function defineWebWorker(...params) {
+function defineWebWorker(...params: any[]) {
   /**
    * @type {(dependencies: string[]) void}
    */
@@ -153,12 +159,11 @@ function defineWebWorker(...params) {
   // Instance dependencies
   const exports = {}
   const module = { exports }
-  const rutimeDepencies = dependencies.map((dep) =>
-    dep === 'exports'
-      ? exports
-      : dep === 'module'
-      ? module
-      : requireDependencyWebWorker(dep)
+  const rutimeDepencies = dependencies.map((dep: any) => dep === 'exports'
+    ? exports
+    : dep === 'module'
+    ? module
+    : requireDependencyWebWorker(dep)
   )
   // Run factory ... This will (maybe) write into exports
   const outFactory = factory(...rutimeDepencies)
@@ -180,8 +185,9 @@ defineWebWorker.amd = {}
  *
  * @param {string} url
  */
-function requireFromUrl(url) {
+function requireFromUrl(url: any) {
   return new Promise((resolve, reject) => {
+    // @ts-expect-error TS(2339): Property 'define' does not exist on type 'Window &... Remove this comment to see the full error message
     window.define = defineDOM
     const scriptTag = document.createElement('script')
     scriptTag.src = url
@@ -200,10 +206,10 @@ function requireFromUrl(url) {
             scriptTag.remove()
             resolve(promiseFinalExports)
           })
-          .catch((err) => {
+          .catch((err: any) => {
             scriptTag.remove()
             reject(err)
-          })
+          });
       },
       {
         once: true,
@@ -220,10 +226,10 @@ function requireFromUrl(url) {
       }
     )
     document.head.append(scriptTag)
-  })
+  });
 }
 
-function isRawChartLike(obj) {
+function isRawChartLike(obj: any) {
   if (typeof obj === 'object' && obj !== null) {
     return (
       typeof obj.render === 'function' && typeof obj.metadata.id === 'string'
@@ -236,7 +242,7 @@ function isRawChartLike(obj) {
  * @param {string} url
  * @returns {Promise<ChartContract[]>}
  */
-export async function requireRawChartsFromUrl(url) {
+export async function requireRawChartsFromUrl(url: any) {
   if (cacheChartsPkg.get(url)) {
     return Promise.resolve(cacheChartsPkg.get(url))
   }
@@ -244,6 +250,7 @@ export async function requireRawChartsFromUrl(url) {
   if (!daExports) {
     return []
   }
+  // @ts-expect-error TS(2550): Property 'values' does not exist on type 'ObjectCo... Remove this comment to see the full error message
   const charts = Object.values(daExports).filter(isRawChartLike)
   // NOTE: Cache only relevant exports ...
   if (charts.length > 0) {
@@ -256,7 +263,7 @@ export async function requireRawChartsFromUrl(url) {
  * @param {string} url
  * @returns {ChartContract[]}
  */
-export function requireRawChartsFromUrlWebWorker(url) {
+export function requireRawChartsFromUrlWebWorker(url: any) {
   if (cacheChartsPkg.get(url)) {
     return cacheChartsPkg.get(url)
   }
@@ -264,6 +271,7 @@ export function requireRawChartsFromUrlWebWorker(url) {
   if (!daExports) {
     return []
   }
+  // @ts-expect-error TS(2550): Property 'values' does not exist on type 'ObjectCo... Remove this comment to see the full error message
   const charts = Object.values(daExports).filter(isRawChartLike)
   // NOTE: Cache only relevant exports ...
   if (charts.length > 0) {
@@ -277,7 +285,8 @@ export function requireRawChartsFromUrlWebWorker(url) {
  *
  * @param {string} url
  */
-function requireFromUrlWebWorker(url) {
+function requireFromUrlWebWorker(url: any) {
+  // @ts-expect-error TS(2339): Property 'define' does not exist on type 'Window &... Remove this comment to see the full error message
   self.define = defineWebWorker
   self.importScripts(url)
   const finalExports = queue.pop()

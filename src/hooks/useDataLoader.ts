@@ -1,6 +1,9 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { parseDataset } from '@rawgraphs/rawgraphs-core'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { difference, get } from 'lodash'
 import { useCallback, useState } from 'react'
+// @ts-expect-error TS(6142): Module '../constants' was resolved to '/Users/gurs... Remove this comment to see the full error message
 import { DefaultSeparator, localeList, WEBWORKER_ACTIVE } from '../constants'
 import { parseDatasetInWorker } from '../worker'
 import {
@@ -57,6 +60,7 @@ export default function useDataLoader() {
   ] = useState(undefined)
 
   /* Unpacking */
+  // @ts-expect-error TS(2339): Property 'dataTypes' does not exist on type 'never... Remove this comment to see the full error message
   const columnsTypes = unstackedColumns ?? data?.dataTypes
 
   //wrapper for async parse via web worker
@@ -67,15 +71,15 @@ export default function useDataLoader() {
         ...parsingOptions,
         dateLocale: get(localeList, parsingOptions.locale),
       })
-        .then((resultData) => {
+        .then((resultData: any) => {
           return resultData
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log('eee', err)
         })
         .finally(() => {
           setLoading(false)
-        })
+        });
     },
     [setLoading]
   )
@@ -112,9 +116,8 @@ export default function useDataLoader() {
 
   const parseDatasetAndSetData = useCallback(
     (data, dataTypes, parsingOptions) => {
-      return parseDatasetAuto(data, dataTypes, parsingOptions).then((data) =>
-        setData(data)
-      )
+      return parseDatasetAuto(data, dataTypes, parsingOptions).then((data: any) => setData(data)
+      );
     },
     [parseDatasetAuto]
   )
@@ -126,6 +129,7 @@ export default function useDataLoader() {
     setUserInput('')
     setDataSource(null)
     setParserError(null)
+    // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
     setStackDimension(null)
     setUnstackedInfo([null, null])
   }, [])
@@ -173,10 +177,12 @@ export default function useDataLoader() {
         locale,
         decimal: decimalsSeparator,
         group: thousandsSeparator,
-      }).then((newDataInferred) => {
+      }).then((newDataInferred: any) => {
         if (newDataInferred.errors.length > 0) {
           // Parsing resulted in errors, cannot replace data safely!
+          // @ts-expect-error TS(2339): Property 'replacedData' does not exist on type '{}... Remove this comment to see the full error message
           __cache.replacedData = newDataInferred
+          // @ts-expect-error TS(2345): Argument of type '"parse-error"' is not assignable... Remove this comment to see the full error message
           setReplaceRequiresConfirmation('parse-error')
         } else {
           const oldColNames = Object.keys(columnsTypes)
@@ -185,7 +191,9 @@ export default function useDataLoader() {
           if (missingCols.length > 0) {
             // There is at least one column missing in the new dataset
             // Replace cannot be safe
+            // @ts-expect-error TS(2339): Property 'replacedData' does not exist on type '{}... Remove this comment to see the full error message
             __cache.replacedData = newDataInferred
+            // @ts-expect-error TS(2345): Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
             setReplaceRequiresConfirmation('missing-column:' + missingCols[0])
           } else {
             const nextDataTypes = {
@@ -196,21 +204,24 @@ export default function useDataLoader() {
               locale,
               decimal: decimalsSeparator,
               group: thousandsSeparator,
-            }).then((newData) => {
+            }).then((newData: any) => {
               if (newData.errors.length > 0) {
                 // There was some error in type coercing, data cannot be replaced safely
+                // @ts-expect-error TS(2339): Property 'replacedData' does not exist on type '{}... Remove this comment to see the full error message
                 __cache.replacedData = newDataInferred
+                // @ts-expect-error TS(2345): Argument of type '"type-mismatch"' is not assignab... Remove this comment to see the full error message
                 setReplaceRequiresConfirmation('type-mismatch')
               } else {
                 if (stackDimension) {
                   setUnstackedInfo([userData, newData.dataTypes])
                   const stackedData = stackData(userData, stackDimension)
                   setUserData(stackedData)
+                  // @ts-expect-error TS(2531): Object is possibly 'null'.
                   parseDatasetAuto(stackedData, data.dataTypes, {
                     locale,
                     decimal: decimalsSeparator,
                     group: thousandsSeparator,
-                  }).then(data => setData(data))
+                  }).then((data: any) => setData(data))
                 } else {
                   setData(newData)
                 }
@@ -262,7 +273,7 @@ export default function useDataLoader() {
    * Then we try to read it using different parsers (notably json and csv)
    * Finally, if read is successful, we go inferring types using the raw-core library
    */
-  function setUserDataAndDetect(str, source, options) {
+  function setUserDataAndDetect(str: any, source: any, options: any) {
     const [dataType, parsedUserData, error, extra] = parseAndCheckData(str, {
       separator: get(options, 'separator', null),
     })
@@ -277,6 +288,7 @@ export default function useDataLoader() {
     if (dataType !== 'json' && !error) {
       handleNewUserData(parsedUserData)
     }
+    // @ts-expect-error TS(2339): Property 'jsonPath' does not exist on type 'never'... Remove this comment to see the full error message
     const jsonPath = dataSource?.jsonPath ?? undefined
     if (dataType === 'json' && !error && jsonPath !== undefined) {
       const jsonData = get(parsedUserData, jsonPath, null)
@@ -290,6 +302,7 @@ export default function useDataLoader() {
     (data, path) => {
       const normalized = normalizeJsonArray(data)
       setUserData(normalized)
+      // @ts-expect-error TS(2698): Spread types may only be created from object types... Remove this comment to see the full error message
       setDataSource({...dataSource, jsonPath: path })
       handleNewUserData(normalized)
     },
@@ -302,7 +315,7 @@ export default function useDataLoader() {
    * Steps are very similar with respect to the `setUserInputAndDetect` callback, except for the
    * fact that we take user input from state instead of from parameters
    */
-  function handleChangeSeparator(newSeparator) {
+  function handleChangeSeparator(newSeparator: any) {
     const [dataType, parsedUserData, error] = parseAndCheckData(userInput, {
       separator: newSeparator,
     })
@@ -319,10 +332,11 @@ export default function useDataLoader() {
     }
   }
 
-  function handleChangeLocale(newLocale) {
+  function handleChangeLocale(newLocale: any) {
     if (!data) {
       return
     }
+    // @ts-expect-error TS(2339): Property 'dataset' does not exist on type 'never'.
     parseDatasetAndSetData(data.dataset, data.dataTypes, {
       locale: newLocale,
       decimal: decimalsSeparator,
@@ -331,7 +345,7 @@ export default function useDataLoader() {
     setLocale(newLocale)
   }
 
-  function handleChangeDecimalSeparator(newDecimalSeparator) {
+  function handleChangeDecimalSeparator(newDecimalSeparator: any) {
     const [dataType, parsedUserData, error] = parseAndCheckData(userInput, {
       separator,
     })
@@ -350,7 +364,7 @@ export default function useDataLoader() {
     }
   }
 
-  function handleChangeThousandsSeparator(newThousandsSeparator) {
+  function handleChangeThousandsSeparator(newThousandsSeparator: any) {
     const [dataType, parsedUserData, error] = parseAndCheckData(userInput, {
       separator,
     })
@@ -373,7 +387,7 @@ export default function useDataLoader() {
    * When this happens, we don't need to go through data parsing again, we just invoke
    * the raw-core library starting from the parsed data (stage-2 data)
    */
-  function coerceTypes(nextTypes) {
+  function coerceTypes(nextTypes: any) {
     parseDatasetAndSetData(userData, nextTypes, {
       locale,
       decimal: decimalsSeparator,
@@ -387,7 +401,7 @@ export default function useDataLoader() {
    *   since in this case data are rigorously checked
    * So we just take them as good and use the raw-core library to infer types
    */
-  function loadSample(rawData, sampleSeparator) {
+  function loadSample(rawData: any, sampleSeparator: any) {
     setSeparator(sampleSeparator)
     setUserDataAndDetect(
       rawData,
@@ -396,8 +410,9 @@ export default function useDataLoader() {
     )
   }
 
-  function handleInlineEdit(newDataset) {
+  function handleInlineEdit(newDataset: any) {
     setUserData(newDataset)
+    // @ts-expect-error TS(2531): Object is possibly 'null'.
     parseDatasetAndSetData(newDataset, data.dataTypes, {
       locale,
       decimal: decimalsSeparator,
@@ -406,10 +421,11 @@ export default function useDataLoader() {
     // setData(parseDataset(newDataset, data.dataTypes, {locale}))
   }
 
-  function handleStackOperation(column) {
+  function handleStackOperation(column: any) {
     setStackDimension(column)
     if (column !== null) {
       if (unstackedData === null) {
+        // @ts-expect-error TS(2531): Object is possibly 'null'.
         setUnstackedInfo([userData, data.dataTypes])
       }
       const stackedData = stackData(unstackedData || userData, column)
@@ -433,10 +449,15 @@ export default function useDataLoader() {
 
   const startDataReplace = useCallback(() => {
     setMode(DATA_LOADER_MODE.REPLACE)
+    // @ts-expect-error TS(2339): Property 'userInput' does not exist on type '{}'.
     __cache.userInput = userInput
+    // @ts-expect-error TS(2339): Property 'userDataType' does not exist on type '{}... Remove this comment to see the full error message
     __cache.userDataType = userDataType
+    // @ts-expect-error TS(2339): Property 'dataSource' does not exist on type '{}'.
     __cache.dataSource = dataSource
+    // @ts-expect-error TS(2339): Property 'userData' does not exist on type '{}'.
     __cache.userData = userData
+    // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
     setUserInput(null)
     setUserDataType(null)
     setDataSource(null)
@@ -444,18 +465,26 @@ export default function useDataLoader() {
   }, [dataSource, userData, userDataType, userInput])
 
   const cancelDataReplace = useCallback(() => {
+    // @ts-expect-error TS(2345): Argument of type 'false' is not assignable to para... Remove this comment to see the full error message
     setReplaceRequiresConfirmation(false)
     setMode(DATA_LOADER_MODE.DIRECT)
+    // @ts-expect-error TS(2339): Property 'userInput' does not exist on type '{}'.
     setUserInput(__cache.userInput)
+    // @ts-expect-error TS(2339): Property 'userDataType' does not exist on type '{}... Remove this comment to see the full error message
     setUserDataType(__cache.userDataType)
+    // @ts-expect-error TS(2339): Property 'dataSource' does not exist on type '{}'.
     setDataSource(__cache.dataSource)
+    // @ts-expect-error TS(2339): Property 'userData' does not exist on type '{}'.
     setUserData(__cache.userData)
   }, [])
 
   const commitDataReplace = useCallback(() => {
+    // @ts-expect-error TS(2345): Argument of type 'false' is not assignable to para... Remove this comment to see the full error message
     setReplaceRequiresConfirmation(false)
+    // @ts-expect-error TS(2339): Property 'replacedData' does not exist on type '{}... Remove this comment to see the full error message
     setData(__cache.replacedData)
     setParserError(null)
+    // @ts-expect-error TS(2345): Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
     setStackDimension(null)
     setUnstackedInfo([null, null])
   }, [])

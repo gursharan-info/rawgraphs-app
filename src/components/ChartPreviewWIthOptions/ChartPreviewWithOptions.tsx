@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Row } from 'react-bootstrap'
 import ChartOptions from '../ChartOptions'
 import ChartPreview from '../ChartPreview'
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { chart as rawChart } from '@rawgraphs/rawgraphs-core'
 import { mapDataInWorker } from '../../worker'
+// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { WEBWORKER_ACTIVE } from '../../constants'
 
 const ChartPreviewWithOptions = ({
@@ -14,8 +16,8 @@ const ChartPreviewWithOptions = ({
   visualOptions,
   setVisualOptions,
   setRawViz,
-  setMappingLoading,
-}) => {
+  setMappingLoading
+}: any) => {
   const [error, setError] = useState({variant: "secondary", message: "Required chart variables"})
   const [mappedData, setMappedData] = useState(null)
 
@@ -30,11 +32,11 @@ const ChartPreviewWithOptions = ({
           mapping: mapping,
           dataTypes,
         }, chart.rawCustomChart)
-          .then((mappedData) => {
+          .then((mappedData: any) => {
             setMappingLoading(false)
             setMappedData(mappedData)
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.error(err)
             setMappingLoading(false)
             setMappedData(null)
@@ -65,7 +67,9 @@ const ChartPreviewWithOptions = ({
   ])
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Row>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <ChartOptions
           chart={chart}
           dataset={dataset}
@@ -76,6 +80,7 @@ const ChartPreviewWithOptions = ({
           error={error}
           mappedData={mappedData}
         />
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <ChartPreview
           chart={chart}
           dataset={dataset}

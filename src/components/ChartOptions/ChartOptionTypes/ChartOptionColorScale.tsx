@@ -1,10 +1,15 @@
 import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react'
 import InilineColorPicker from '../../InlineColorPicker'
+// @ts-expect-error TS(6142): Module './ColorSchemesDropDown' was resolved to '/... Remove this comment to see the full error message
 import ColorSchemesDropDown from './ColorSchemesDropDown'
 import { Row, Col, Dropdown } from 'react-bootstrap'
+// @ts-expect-error TS(6142): Module './ColorScaleUtils' was resolved to '/Users... Remove this comment to see the full error message
 import { ResetBtn, InvertBtn, LockBtn } from './ColorScaleUtils'
+// @ts-expect-error TS(6142): Module '../../../constants' was resolved to '/User... Remove this comment to see the full error message
 import { SCALES_LABELS } from '../../../constants'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import keyBy from 'lodash/keyBy'
 import {
   getInitialScaleValues,
@@ -14,11 +19,13 @@ import {
   colorPresets,
   getAvailableScaleTypes,
   getValueType,
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 } from '@rawgraphs/rawgraphs-core'
+// @ts-expect-error TS(2307): Cannot find module '../ChartOptions.module.scss' o... Remove this comment to see the full error message
 import styles from '../ChartOptions.module.scss'
 import usePrevious from '../../../hooks/usePrevious'
 
-function getDatePickerValue(userValue) {
+function getDatePickerValue(userValue: any) {
   if (userValue.userDomain === 0) {
     return 0
   }
@@ -50,7 +57,7 @@ const ChartOptionColorScale = ({
   colorDataType,
   hasAnyMapping,
   ...props
-}) => {
+}: any) => {
 
   // here we leverage injection of the __loaded prop in the color scale, see App.js
   const initialValue = useRef(!!value.__loaded)
@@ -77,10 +84,10 @@ const ChartOptionColorScale = ({
 
   const [interpolator, setInterpolator] = useState(get(value, 'interpolator'))
   const [userValues, setUserValues] = useState(
-    get(value, 'userScaleValues', []).map((userValue) => ({
+    get(value, 'userScaleValues', []).map((userValue: any) => ({
       ...userValue,
       userDomain: userValue.domain,
-      userRange: userValue.range,
+      userRange: userValue.range
     }))
   )
 
@@ -97,8 +104,8 @@ const ChartOptionColorScale = ({
       }
 
       const domains = userValuesForFinalScale
-        .map((x) => x.domain)
-        .filter((x) => x !== undefined)
+        .map((x: any) => x.domain)
+        .filter((x: any) => x !== undefined)
       if (!domains.length) {
         return
       }
@@ -128,26 +135,27 @@ const ChartOptionColorScale = ({
       const domain = getColorDomain(colorDataset, colorDataType, scaleType)
 
       return getInitialScaleValues(domain, scaleType, interpolator).map(
-        (userValue) => ({
+        (userValue: any) => ({
           ...userValue,
           userRange: userValue.range,
-          userDomain: userValue.domain,
+          userDomain: userValue.domain
         })
-      )
+      );
     },
     [colorDataType, colorDataset]
   )
 
   const getUserValuesForFinalScale = useCallback(
     (values) => {
-      return values.map((value) => ({
+      return values.map((value: any) => ({
         range: value.userRange,
+
+        // domain: value.userDomain,
         domain:
           colorDataType === 'date'
             ? value.userDomain?.toString()
-            : value.userDomain,
-        // domain: value.userDomain,
-      }))
+            : value.userDomain
+      }));
     },
     [colorDataType]
   )
@@ -160,6 +168,7 @@ const ChartOptionColorScale = ({
           ? userValues
           : getDefaultUserValues(interpolator, scaleType)
       const valuesForFinalScale = getUserValuesForFinalScale(currentUserValues)
+      // @ts-expect-error TS(2554): Expected 4 arguments, but got 3.
       return getCurrentFinalScale(interpolator, scaleType, valuesForFinalScale)
     }
     return getDefaultColorScale()
@@ -258,7 +267,7 @@ const ChartOptionColorScale = ({
       
       if(customUserValues){
         const byDomain = keyBy(customUserValues, 'domain')
-        valuesForFinalScale = valuesForFinalScale.map(v => ({
+        valuesForFinalScale = valuesForFinalScale.map((v: any) => ({
           ...v,
           range: byDomain[v.domain.toString()] ? byDomain[v.domain.toString()].userRange : v.range
         }))
@@ -305,11 +314,11 @@ const ChartOptionColorScale = ({
     let reversedValues = [...userValues]
     reversedValues.reverse()
 
+    // @ts-expect-error TS(7006): Parameter 'v' implicitly has an 'any' type.
     const invertedValues = userValues.map((v, i) => ({
       ...v,
       userRange: reversedValues[i].userRange,
-      range: reversedValues[i].range,
-
+      range: reversedValues[i].range
     }))
 
     setUserValues(invertedValues)
@@ -363,20 +372,28 @@ const ChartOptionColorScale = ({
 
 
   return hasAnyMapping ? (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <>
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <Row className={props.className} style={{marginTop:'8px', marginBottom:'8px'}}>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col xs={5} className="d-flex align-items-center nowrap">
           Color scale
         </Col>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col xs={7}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Dropdown className="d-inline-block raw-dropdown w-100">
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Dropdown.Toggle variant="white" className="w-100" style={{paddingRight:24}} disabled={!colorDataType}>
               {get(SCALES_LABELS, scaleType, scaleType)}
             </Dropdown.Toggle>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Dropdown.Menu className="w-100">
             {availableScaleTypes.map(
-              (s) => {
+              (s: any) => {
                 return (
+                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   <Dropdown.Item key={s} onClick={()=>handleChangeScaleType(s)}>
                     {get(SCALES_LABELS, s, s)}
                   </Dropdown.Item>
@@ -389,11 +406,15 @@ const ChartOptionColorScale = ({
       </Row>
 
       {/* Color scheme */}
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <Row className={[props.className].join(' ')} style={{marginTop:'8px', marginBottom:'8px'}}>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col xs={5} className="d-flex align-items-center nowrap">
           Color scheme
         </Col>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col xs={7}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <ColorSchemesDropDown
             interpolators={interpolators}
             interpolator={interpolator}
@@ -409,8 +430,10 @@ const ChartOptionColorScale = ({
 
       {/* Scale color swatches */}
       {colorDataType && userValues && (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div className={styles['color-swatches-list']}>
-          {userValues.map((userValue, i) => (
+          {userValues.map((userValue: any, i: any) => (
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Row
               key={i}
               className={[
@@ -421,10 +444,13 @@ const ChartOptionColorScale = ({
                   : styles['ordinal'],
               ].join(' ')}
             >
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <Col xs={12}>
+                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <div className={styles['color-scale-item']}>
                   {scaleType === 'ordinal' &&
                     get(userValue, 'domain') !== undefined && (
+                      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                       <span
                         className="nowrap text-truncate pr-2"
                         title={userValue.domain && userValue.domain.toString()}
@@ -435,7 +461,9 @@ const ChartOptionColorScale = ({
                       </span>
                     )}
                   {scaleType !== 'ordinal' && (
+                    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                     <>
+                      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                       <span className="nowrap">
                         {i === 0
                           ? 'Start'
@@ -443,6 +471,7 @@ const ChartOptionColorScale = ({
                             ? 'End'
                             : 'Middle'}
                       </span>
+                      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                       <input
                         disabled={locked}
                         type={getValueType(userValue.userDomain)}
@@ -458,9 +487,10 @@ const ChartOptionColorScale = ({
                       ></input>
                     </>
                   )}
+                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   <InilineColorPicker
                     color={userValue.userRange}
-                    onChange={(color) => {
+                    onChange={(color: any) => {
                       setUserValueRange(i, color)
                     }}
                   />
@@ -468,12 +498,17 @@ const ChartOptionColorScale = ({
               </Col>
             </Row>
           ))}
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Row>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Col className="d-flex justify-content-end">
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <ResetBtn resetScale={resetScale} />
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <InvertBtn invertScale={invertScale} />
               {
                 scaleType !== 'ordinal' && (
+                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   <LockBtn locked={locked} handleChangeLocked={handleChangeLocked} />
                 )
               }
@@ -485,7 +520,7 @@ const ChartOptionColorScale = ({
       )}
 
     </>
-  ) : null
+  ) : null;
 }
 
 export default ChartOptionColorScale

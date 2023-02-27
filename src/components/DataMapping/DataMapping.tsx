@@ -6,51 +6,60 @@ import React, {
   useState,
 } from 'react'
 import { Row, Col } from 'react-bootstrap'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import map from 'lodash/map'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
+// @ts-expect-error TS(6142): Module './ColumnCard' was resolved to '/Users/gurs... Remove this comment to see the full error message
 import ColumnCard from './ColumnCard'
+// @ts-expect-error TS(6142): Module './ChartDimensionCard' was resolved to '/Us... Remove this comment to see the full error message
 import ChartDimensionCard from './ChartDimensionCard'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import uniqueId from 'lodash/uniqueId'
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'arra... Remove this comment to see the full error message
 import arrayInsert from 'array-insert'
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { getDefaultDimensionAggregation } from '@rawgraphs/rawgraphs-core'
 
-function removeIndex(mapping, i) {
+function removeIndex(mapping: any, i: any) {
   let nextConfig
   if (mapping.config) {
     nextConfig = {
       ...mapping.config,
-      aggregation: mapping.config.aggregation.filter((col, j) => j !== i),
+      aggregation: mapping.config.aggregation.filter((col: any, j: any) => j !== i),
     }
   }
 
   return {
     ...mapping,
-    ids: mapping.ids.filter((col, j) => j !== i),
-    value: mapping.value.filter((col, j) => j !== i),
+    ids: mapping.ids.filter((col: any, j: any) => j !== i),
+    value: mapping.value.filter((col: any, j: any) => j !== i),
     config: nextConfig,
-  }
+  };
 }
 
-function arrayReplace(arr, i, value) {
-  return arr.map((item, j) => (j === i ? value : item))
+function arrayReplace(arr: any, i: any, value: any) {
+  return arr.map((item: any, j: any) => (j === i ? value : item));
 }
 
 function handleReplaceLocalMapping(
-  nextId,
-  prev,
-  fromDimension,
-  toDimension,
-  fromIndex,
-  toIndex,
-  dimensions,
-  dataTypes,
+  nextId: any,
+  prev: any,
+  fromDimension: any,
+  toDimension: any,
+  fromIndex: any,
+  toIndex: any,
+  dimensions: any,
+  dataTypes: any,
   multiple = false
 ) {
   const removedItem = {}
+  // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
   removedItem.aggregation =
     prev[fromDimension]?.config?.aggregation?.[fromIndex]
+  // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
   removedItem.value = prev[fromDimension].value[fromIndex]
 
   let moveFn = multiple ? arrayInsert : arrayReplace
@@ -59,17 +68,21 @@ function handleReplaceLocalMapping(
   const toDimensionMapping = {
     ...prevToMapping,
     ids: moveFn(prevToMapping.ids ?? [], toIndex, nextId),
+    // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
     value: moveFn(prevToMapping.value ?? [], toIndex, removedItem.value),
   }
 
   const dimension = dimensions[toDimension]
   if (dimensions.aggregation) {
     let newAggregation
+    // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
     if (removedItem.aggregation) {
+      // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
       newAggregation = removedItem.aggregation
     } else {
       newAggregation = getDefaultDimensionAggregation(
         dimension,
+        // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
         dataTypes[removedItem.value]
       )
     }
@@ -89,21 +102,26 @@ function handleReplaceLocalMapping(
   return obj
 }
 
-function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
+function DataMapping({
+  dataTypes,
+  dimensions,
+  mapping,
+  setMapping
+}: any, ref: any) {
   const [localMappding, setLocalMapping] = useState(mapping)
 
   const updateMapping = useCallback(
     (dimension, mappingConf, isLocal) => {
       // Local
-      setLocalMapping((prev) => ({
+      setLocalMapping((prev: any) => ({
         ...prev,
-        [dimension]: mappingConf,
+        [dimension]: mappingConf
       }))
       if (!isLocal) {
         // Gloab mapping
-        setMapping((prev) => ({
+        setMapping((prev: any) => ({
           ...prev,
-          [dimension]: mappingConf,
+          [dimension]: mappingConf
         }))
       }
     },
@@ -115,7 +133,7 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
       if (multiple) {
         setDraggingId(nextId)
       }
-      setLocalMapping((prev) => {
+      setLocalMapping((prev: any) => {
         return handleReplaceLocalMapping(
           nextId,
           prev,
@@ -129,7 +147,7 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
         )
       })
       if (!multiple) {
-        setMapping((prev) => {
+        setMapping((prev: any) => {
           return handleReplaceLocalMapping(
             nextId,
             prev,
@@ -176,12 +194,17 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
   }))
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <DndProvider backend={HTML5Backend}>
+      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <Row>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col xs={3}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <h5 className="text-uppercase">Dimensions</h5>
-          {map(dataTypes, (dataType, columnName) => {
+          {map(dataTypes, (dataType: any, columnName: any) => {
             return (
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <ColumnCard
                 key={columnName}
                 dimensionName={columnName}
@@ -192,21 +215,25 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
             )
           })}
         </Col>
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Col>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <h5 className="text-uppercase">Chart Variables</h5>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Row
             className="sticky-top"
             style={{ top: 'calc(var(--header-height) + 16px)' }}
           >
-            {dimensions.map((d) => {
+            {dimensions.map((d: any) => {
               return (
+                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <ChartDimensionCard
                   key={d.id}
                   dimension={d}
                   dataTypes={dataTypes}
                   // mapping={mapping[d.id] || {}}
                   mapping={localMappding[d.id] || {}}
-                  setMapping={(mappingConf, isLocal = false) =>
+                  setMapping={(mappingConf: any, isLocal = false) =>
                     updateMapping(d.id, mappingConf, isLocal)
                   }
                   commitLocalMapping={commitLocalMapping}
@@ -216,13 +243,13 @@ function DataMapping({ dataTypes, dimensions, mapping, setMapping }, ref) {
                   replaceDimension={replaceDimension}
                   localMappding={localMappding}
                 />
-              )
+              );
             })}
           </Row>
         </Col>
       </Row>
     </DndProvider>
-  )
+  );
 }
 
 export default React.memo(React.forwardRef(DataMapping))

@@ -1,22 +1,28 @@
 import * as Comlink from 'comlink'
+// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { parseDataset, chart as rawChart } from '@rawgraphs/rawgraphs-core'
 import charts from '../charts'
 import { requireRawChartsFromUrlWebWorker } from '../hooks/rawRequire'
 
 const obj = {
-  parseDataset(data, dataTypes, parsingOptions) {
+  parseDataset(data: any, dataTypes: any, parsingOptions: any) {
     let out = parseDataset(data, dataTypes, parsingOptions)
-    out.errors = (out.errors || []).map((err) => ({
+    out.errors = (out.errors || []).map((err: any) => ({
       row: err.row,
-      error: err.error,
+      error: err.error
     }))
     return out
   },
-  mapData(chartName, { data, mapping, visualOptions, dataTypes }, customChart) {
+  mapData(chartName: any, {
+    data,
+    mapping,
+    visualOptions,
+    dataTypes
+  }: any, customChart: any) {
     let chart
     if (customChart) {
       const chartsInPack = requireRawChartsFromUrlWebWorker(customChart.url)
-      chart = chartsInPack.find((item) => item.metadata.name === chartName)
+      chart = chartsInPack.find((item: any) => item.metadata.name === chartName)
     } else {
       chart = charts.find((item) => item.metadata.name === chartName)
     }
