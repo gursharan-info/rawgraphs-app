@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Row } from 'react-bootstrap'
 import ChartOptions from '../ChartOptions'
 import ChartPreview from '../ChartPreview'
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { chart as rawChart } from '@rawgraphs/rawgraphs-core'
 import { mapDataInWorker } from '../../worker'
-// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { WEBWORKER_ACTIVE } from '../../constants'
 
 const ChartPreviewWithOptions = ({
@@ -67,10 +65,8 @@ const ChartPreviewWithOptions = ({
   ])
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Row>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <ChartOptions
+        <Row>
+                <ChartOptions
           chart={chart}
           dataset={dataset}
           mapping={mapping}
@@ -80,8 +76,7 @@ const ChartPreviewWithOptions = ({
           error={error}
           mappedData={mappedData}
         />
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <ChartPreview
+                <ChartPreview
           chart={chart}
           dataset={dataset}
           dataTypes={dataTypes}

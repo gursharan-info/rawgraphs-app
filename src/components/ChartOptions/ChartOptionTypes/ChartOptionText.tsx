@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-expect-error TS(6142): Module './ChartOptionSelect' was resolved to '/Use... Remove this comment to see the full error message
 import ChartOptionSelect from './ChartOptionSelect'
 
 const ChartOptionText = ({
@@ -13,8 +12,7 @@ const ChartOptionText = ({
 }: any) => {
   if (props.options) {
     return (
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <ChartOptionSelect
+            <ChartOptionSelect
         value={value}
         error={error}
         onChange={onChange}
@@ -25,14 +23,10 @@ const ChartOptionText = ({
     )
   }
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <label className="d-block">
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <b>{label}</b>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <br />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <input
+        <label className="d-block">
+            <b>{label}</b>
+            <br />
+            <input
         type="text"
         value={value ?? ''}
         step={props.step}
@@ -43,10 +37,8 @@ const ChartOptionText = ({
         placeholder={defaultValue}
       />
       {error && (
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <small>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <i>{error}</i>
+                <small>
+                    <i>{error}</i>
         </small>
       )}
     </label>

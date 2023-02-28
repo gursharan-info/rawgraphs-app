@@ -11,8 +11,7 @@ function WarningMessage({
   action = null,
 }) {
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Alert
+        <Alert
       variant={variant}
       className="my-2 d-flex flex-row justify-content-between align-items-center"
     >

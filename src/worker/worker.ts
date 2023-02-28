@@ -1,5 +1,4 @@
 import * as Comlink from 'comlink'
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { parseDataset, chart as rawChart } from '@rawgraphs/rawgraphs-core'
 import charts from '../charts'
 import { requireRawChartsFromUrlWebWorker } from '../hooks/rawRequire'

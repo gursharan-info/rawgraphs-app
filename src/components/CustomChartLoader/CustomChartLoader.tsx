@@ -3,7 +3,6 @@ import React, { memo, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
 import { BsCloud, BsUpload } from 'react-icons/bs'
-// @ts-expect-error TS(2307): Cannot find module './CustomChartLoader.module.scs... Remove this comment to see the full error message
 import styles from './CustomChartLoader.module.scss'
 
 function LoadFromFile({
@@ -24,34 +23,25 @@ function LoadFromFile({
     disabled: loading,
     onDrop,
     accept: 'text/plan,text/javascript',
-    // @ts-expect-error TS(2345): Argument of type '{ disabled: any; onDrop: (accept... Remove this comment to see the full error message
-    maxFiles: 1,
+        maxFiles: 1,
   })
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <div
+        <div
       className={classNames(styles.dropzone, {
         [styles.reject]: isDragReject,
         [styles.accept]: isDragAccept,
       })}
       {...getRootProps()}
     >
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <input {...getInputProps()} />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <span>Drag a file here or </span>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Button className={styles['browse-button']} color="primary">
+            <input {...getInputProps()} />
+            <span>Drag a file here or </span>
+            <Button className={styles['browse-button']} color="primary">
         Browse
       </Button>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <span>a file from your computer</span>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className={styles.dropin}>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        {isDragAccept && <p>All files will be accepted</p>}
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        {isDragReject && <p>Some files will be rejected</p>}
+            <span>a file from your computer</span>
+            <div className={styles.dropin}>
+                {isDragAccept && <p>All files will be accepted</p>}
+                {isDragReject && <p>Some files will be rejected</p>}
       </div>
     </div>
   )
@@ -64,15 +54,13 @@ function LoadFromString({
 }: any) {
   const [value, setValue] = useState('')
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <form
+        <form
       onSubmit={(e) => {
         e.preventDefault()
         load(value)
       }}
     >
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <input
+            <input
         disabled={loading}
         className="form-control mb-2"
         placeholder={placeholder}
@@ -80,10 +68,8 @@ function LoadFromString({
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className="text-right">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <button
+            <div className="text-right">
+                <button
           type="submit"
           disabled={value.trim() === '' || loading}
           className="btn btn-primary"
@@ -121,12 +107,9 @@ function CustomChartLoaderForm({
   }
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <div className="row" style={{ minHeight: 300 }}>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className="col-md-4">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <div
+        <div className="row" style={{ minHeight: 300 }}>
+            <div className="col-md-4">
+                <div
           onClick={() => {
             changeImportType('file')
           }}
@@ -138,13 +121,10 @@ function CustomChartLoaderForm({
             }
           )}
         >
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <BsUpload className="w-25" />
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <h4 className="m-0 d-inline-block">Load from file</h4>
+                    <BsUpload className="w-25" />
+                    <h4 className="m-0 d-inline-block">Load from file</h4>
         </div>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <div
+                <div
           onClick={() => changeImportType('url')}
           className={classNames(
             'd-flex align-items-center cursor-pointer',
@@ -154,13 +134,10 @@ function CustomChartLoaderForm({
             }
           )}
         >
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <BsCloud className="w-25" />
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <h4 className="m-0 d-inline-block">Import from URL</h4>
+                    <BsCloud className="w-25" />
+                    <h4 className="m-0 d-inline-block">Import from URL</h4>
         </div>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <div
+                <div
           onClick={() => changeImportType('npm')}
           className={classNames(
             'd-flex align-items-center cursor-pointer',
@@ -170,17 +147,13 @@ function CustomChartLoaderForm({
             }
           )}
         >
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <BsCloud className="w-25" />
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <h4 className="m-0 d-inline-block">Import from NPM</h4>
+                    <BsCloud className="w-25" />
+                    <h4 className="m-0 d-inline-block">Import from NPM</h4>
         </div>
       </div>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className="col-md-8">
+            <div className="col-md-8">
         {type === 'npm' && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <LoadFromString
+                    <LoadFromString
             loading={loading}
             load={(pkg: any) => {
               setError(null)
@@ -192,8 +165,7 @@ function CustomChartLoaderForm({
           />
         )}
         {type === 'url' && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <LoadFromString
+                    <LoadFromString
             loading={loading}
             load={(url: any) => {
               setError(null)
@@ -205,8 +177,7 @@ function CustomChartLoaderForm({
           />
         )}
         {type === 'file' && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <LoadFromFile
+                    <LoadFromFile
             loading={loading}
             load={(url: any) => {
               setError(null)
@@ -218,8 +189,7 @@ function CustomChartLoaderForm({
           />
         )}
         {error && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <div className="alert alert-danger mt-2">
+                    <div className="alert alert-danger mt-2">
             Error during custom chart import
           </div>
         )}
@@ -234,8 +204,7 @@ function CustomChartLoader({
   ...props
 }: any) {
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Modal
+        <Modal
       show={isOpen}
       onHide={onClose}
       backdrop="static"
@@ -245,24 +214,17 @@ function CustomChartLoader({
       className="raw-modal"
       contentClassName="bg-white"
     >
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Modal.Header closeButton>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Modal.Title>Add a new custom chart</Modal.Title>
+            <Modal.Header closeButton>
+                <Modal.Title>Add a new custom chart</Modal.Title>
       </Modal.Header>
 
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Modal.Body>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <CustomChartLoaderForm {...props} onClose={onClose} />
+            <Modal.Body>
+                <CustomChartLoaderForm {...props} onClose={onClose} />
       </Modal.Body>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Modal.Footer>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <div className='text-center w-100'>
+            <Modal.Footer>
+                <div className='text-center w-100'>
           Do you want to know how to create a custom chart?{' '}
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <a href="https://rawgraphs.io" target="_blank" rel="noreferrer">
+                    <a href="https://rawgraphs.io" target="_blank" rel="noreferrer">
             Check our documentation
           </a>
         </div>

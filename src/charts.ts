@@ -29,7 +29,6 @@ import {
   // violinplot,
   // voronoidiagram,
   // voronoitreemap,
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 } from '@rawgraphs/rawgraphs-charts'
 
 // import { calendarHeatmap } from '@rawgraphs/rawgraphs-calendar-heatmap'

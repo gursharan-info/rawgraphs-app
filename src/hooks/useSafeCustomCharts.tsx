@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-// @ts-expect-error TS(6142): Module './useCustomCharts' was resolved to '/Users... Remove this comment to see the full error message
 import useCustomCharts from './useCustomCharts'
 import './chart-types'
 
@@ -55,14 +54,10 @@ export default function useSafeCustomCharts() {
   const [
     customCharts,
     {
-      // @ts-expect-error TS(2339): Property 'uploadCustomCharts' does not exist on ty... Remove this comment to see the full error message
-      uploadCustomCharts: unsafeUploadCustomCharts,
-      // @ts-expect-error TS(2339): Property 'loadCustomChartsFromNpm' does not exist ... Remove this comment to see the full error message
-      loadCustomChartsFromNpm: unsafeLoadCustomChartsFromNpm,
-      // @ts-expect-error TS(2339): Property 'loadCustomChartsFromUrl' does not exist ... Remove this comment to see the full error message
-      loadCustomChartsFromUrl: unsafeLoadCustomChartsFromUrl,
-      // @ts-expect-error TS(2339): Property 'importCustomChartFromProject' does not e... Remove this comment to see the full error message
-      importCustomChartFromProject: unsafeImportCustomChartFromProject,
+            uploadCustomCharts: unsafeUploadCustomCharts,
+            loadCustomChartsFromNpm: unsafeLoadCustomChartsFromNpm,
+            loadCustomChartsFromUrl: unsafeLoadCustomChartsFromUrl,
+            importCustomChartFromProject: unsafeImportCustomChartFromProject,
       ...methods
     },
   ] = useCustomCharts()
@@ -83,8 +78,7 @@ export default function useSafeCustomCharts() {
       } else {
         return new Promise((resolve, reject) => {
           setToConfirmCustomChartLoad({
-            // @ts-expect-error TS(2345): Argument of type '{ type: string; value: string; r... Remove this comment to see the full error message
-            type: 'url',
+                        type: 'url',
             value: String(parsedUrl),
             resolve,
             reject,
@@ -106,8 +100,7 @@ export default function useSafeCustomCharts() {
       } else {
         return new Promise((resolve, reject) => {
           setToConfirmCustomChartLoad({
-            // @ts-expect-error TS(2345): Argument of type '{ type: string; value: any; reso... Remove this comment to see the full error message
-            type: 'npm',
+                        type: 'npm',
             value: name,
             resolve,
             reject,
@@ -121,8 +114,7 @@ export default function useSafeCustomCharts() {
   const uploadCustomCharts = useCallback((file) => {
     return new Promise((resolve, reject) => {
       setToConfirmCustomChartLoad({
-        // @ts-expect-error TS(2345): Argument of type '{ type: string; value: any; reso... Remove this comment to see the full error message
-        type: 'file',
+                type: 'file',
         value: file,
         resolve,
         reject,
@@ -148,8 +140,7 @@ export default function useSafeCustomCharts() {
       if (askConfirm) {
         return new Promise((resolve, reject) => {
           setToConfirmCustomChartLoad({
-            // @ts-expect-error TS(2345): Argument of type '{ type: string; value: any; reso... Remove this comment to see the full error message
-            type: 'project',
+                        type: 'project',
             value: projectChart,
             resolve,
             reject,
@@ -163,8 +154,7 @@ export default function useSafeCustomCharts() {
   )
 
   const confirmCustomChartLoad = useCallback(() => {
-    // @ts-expect-error TS(2339): Property 'type' does not exist on type 'null'.
-    const { type, value, resolve, reject } = toConfirmCustomChart
+        const { type, value, resolve, reject } = toConfirmCustomChart
     if (type === 'file') {
       unsafeUploadCustomCharts(value).then(resolve, reject)
     } else if (type === 'url') {
@@ -185,8 +175,7 @@ export default function useSafeCustomCharts() {
 
   const abortCustomChartLoad = useCallback(() => {
     if (toConfirmCustomChart) {
-      // @ts-expect-error TS(2339): Property 'reject' does not exist on type 'never'.
-      toConfirmCustomChart.reject(new UserAbortError())
+            toConfirmCustomChart.reject(new UserAbortError())
     }
     setToConfirmCustomChartLoad(null)
   }, [toConfirmCustomChart])

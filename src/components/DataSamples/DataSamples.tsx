@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row, Col, Card } from 'react-bootstrap'
-// @ts-expect-error TS(2307): Cannot find module './DataSamples.module.scss' or ... Remove this comment to see the full error message
 import styles from './DataSamples.module.scss'
 
 const samplesList = [
@@ -251,8 +250,7 @@ export default function DataSamples({
     try {
       response = await fetch(url)
     } catch (e) {
-      // @ts-expect-error TS(2571): Object is of type 'unknown'.
-      setLoadingError('Loading error. ' + e.message)
+            setLoadingError('Loading error. ' + e.message)
       return
     }
     const text = await response.text()
@@ -260,34 +258,26 @@ export default function DataSamples({
     setLoadingError(null)
   }
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Row>
+        <Row>
       {samplesList
         // sort by category name
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((d, i) => {
           return (
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <Col xs={6} lg={4} xl={3} key={i} style={{ marginBottom: 15 }}>
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <Card className="cursor-pointer h-100">
-                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                <Card.Body
+                        <Col xs={6} lg={4} xl={3} key={i} style={{ marginBottom: 15 }}>
+                            <Card className="cursor-pointer h-100">
+                                <Card.Body
                   onClick={() => {
                     select(d)
                   }}
                   className="d-flex flex-column"
                 >
-                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                  <Card.Title className="">
-                    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                    <h2 className="">{d.name}</h2>
-                    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                    <h4 className="m-0">{d.category}</h4>
+                                    <Card.Title className="">
+                                        <h2 className="">{d.name}</h2>
+                                        <h4 className="m-0">{d.category}</h4>
                   </Card.Title>
                 </Card.Body>
-                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                <a
+                                <a
                   href={d.sourceURL}
                   className={[styles['dataset-source']].join(' ')}
                 >

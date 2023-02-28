@@ -14,10 +14,8 @@ export default function useWindowSize() {
     function handleResize() {
       // Set window width/height to state
       setWindowSize({
-        // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'undefined... Remove this comment to see the full error message
-        width: window.innerWidth,
-        // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'undefined... Remove this comment to see the full error message
-        height: window.innerHeight,
+                width: window.innerWidth,
+                height: window.innerHeight,
       });
     }
     

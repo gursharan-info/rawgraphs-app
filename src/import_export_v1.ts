@@ -1,4 +1,3 @@
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { get, has } from "lodash"
 import charts from "./charts"
 
@@ -14,8 +13,7 @@ function matrixToObjects(matrix: any, columns: any) {
   return matrix.map((record: any) => {
     const obj = {}
     for (let i = 0; i < columns.length; i++) {
-      // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-      obj[columns[i]] = record[i]
+            obj[columns[i]] = record[i]
     }
     return obj
   });
@@ -44,20 +42,14 @@ export function serializeProject(
   }
 
   /* First stage: user input */
-  // @ts-expect-error TS(2339): Property 'userInput' does not exist on type '{ ver... Remove this comment to see the full error message
-  project.userInput = userInput
-  // @ts-expect-error TS(2339): Property 'userInputFormat' does not exist on type ... Remove this comment to see the full error message
-  project.userInputFormat = userDataType
-  // @ts-expect-error TS(2339): Property 'dataSource' does not exist on type '{ ve... Remove this comment to see the full error message
-  project.dataSource = dataSource
+    project.userInput = userInput
+    project.userInputFormat = userDataType
+    project.dataSource = dataSource
 
   /* Second stage: parsed */
-  // @ts-expect-error TS(2339): Property 'rawData' does not exist on type '{ versi... Remove this comment to see the full error message
-  project.rawData = objectsToMatrix(userData, Object.keys(data.dataTypes))
-  // @ts-expect-error TS(2339): Property 'parseError' does not exist on type '{ ve... Remove this comment to see the full error message
-  project.parseError = parseError
-  // @ts-expect-error TS(2339): Property 'parseOptions' does not exist on type '{ ... Remove this comment to see the full error message
-  project.parseOptions = {
+    project.rawData = objectsToMatrix(userData, Object.keys(data.dataTypes))
+    project.parseError = parseError
+    project.parseOptions = {
     separator,
     thousandsSeparator,
     decimalsSeparator,
@@ -68,16 +60,12 @@ export function serializeProject(
   }
 
   /* Third stage: typed data ready for chart */
-  // @ts-expect-error TS(2339): Property 'dataTypes' does not exist on type '{ ver... Remove this comment to see the full error message
-  project.dataTypes = data.dataTypes
+    project.dataTypes = data.dataTypes
 
   /* Chart: mapping and visual options */
-  // @ts-expect-error TS(2339): Property 'chart' does not exist on type '{ version... Remove this comment to see the full error message
-  project.chart = currentChart.metadata.name
-  // @ts-expect-error TS(2339): Property 'mapping' does not exist on type '{ versi... Remove this comment to see the full error message
-  project.mapping = mapping
-  // @ts-expect-error TS(2339): Property 'visualOptions' does not exist on type '{... Remove this comment to see the full error message
-  project.visualOptions = visualOptions
+    project.chart = currentChart.metadata.name
+    project.mapping = mapping
+    project.visualOptions = visualOptions
 
   return project
 }

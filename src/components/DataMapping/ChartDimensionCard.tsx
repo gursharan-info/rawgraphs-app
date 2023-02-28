@@ -1,32 +1,23 @@
 import React, { useCallback } from 'react'
-// @ts-expect-error TS(6142): Module './DataTypeIcon' was resolved to '/Users/gu... Remove this comment to see the full error message
 import DataTypeIcon from './DataTypeIcon'
-// @ts-expect-error TS(6142): Module './RequiredIcon' was resolved to '/Users/gu... Remove this comment to see the full error message
 import RequiredIcon from './RequiredIcon'
 import { Col } from 'react-bootstrap'
 import { useDrop } from 'react-dnd'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import uniqueId from 'lodash/uniqueId'
 import classnames from 'classnames'
 import arrayMove from 'array-move'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'arra... Remove this comment to see the full error message
 import arrayInsert from 'array-insert'
 
 // import { DATATYPE_ICONS } from "../../constants"
-// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { dataTypeIcons } from '../../constants'
 import {
   getTypeName,
   getAggregatorNames,
   getDefaultDimensionAggregation,
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 } from '@rawgraphs/rawgraphs-core'
-// @ts-expect-error TS(6142): Module './ChartDimensionItem' was resolved to '/Us... Remove this comment to see the full error message
 import ChartDimensionItem from './ChartDimensionItem'
 
-// @ts-expect-error TS(2307): Cannot find module './DataMapping.module.scss' or ... Remove this comment to see the full error message
 import styles from './DataMapping.module.scss'
 const aggregators = getAggregatorNames()
 const emptyList: any = []
@@ -51,12 +42,10 @@ const ChartDimensionCard = ({
     drop: (item, monitor) => {
       if (item.type === 'column') {
         const defaulAggregation = dimension.aggregation
-          // @ts-expect-error TS(2339): Property 'id' does not exist on type 'DragObjectWi... Remove this comment to see the full error message
-          ? getDefaultDimensionAggregation(dimension, dataTypes[item.id])
+                    ? getDefaultDimensionAggregation(dimension, dataTypes[item.id])
           : null
 
-        // @ts-expect-error TS(2339): Property 'id' does not exist on type 'DragObjectWi... Remove this comment to see the full error message
-        const columnDataType = getTypeName(dataTypes[item.id]);
+                const columnDataType = getTypeName(dataTypes[item.id]);
         const isValid =
           dimension.validTypes?.length === 0 ||
           dimension.validTypes?.includes(columnDataType)
@@ -64,8 +53,7 @@ const ChartDimensionCard = ({
         setMapping({
           ...mapping,
           ids: (mapping.ids || []).concat(uniqueId()),
-          // @ts-expect-error TS(2339): Property 'id' does not exist on type 'DragObjectWi... Remove this comment to see the full error message
-          value: [...(mapping.value || []), item.id],
+                    value: [...(mapping.value || []), item.id],
           isValid: isValid,
           mappedType: columnDataType,
           config: dimension.aggregation
@@ -77,14 +65,11 @@ const ChartDimensionCard = ({
               }
             : undefined,
         })
-      // @ts-expect-error TS(2339): Property 'dimensionId' does not exist on type 'Dra... Remove this comment to see the full error message
-      } else if (item.dimensionId !== dimension.id) {
+            } else if (item.dimensionId !== dimension.id) {
         replaceDimension(
-          // @ts-expect-error TS(2339): Property 'dimensionId' does not exist on type 'Dra... Remove this comment to see the full error message
-          item.dimensionId,
+                    item.dimensionId,
           dimension.id,
-          // @ts-expect-error TS(2339): Property 'index' does not exist on type 'DragObjec... Remove this comment to see the full error message
-          item.index,
+                    item.index,
           mapping.value ? mapping.value.length : 0,
           true
         )
@@ -214,20 +199,15 @@ const ChartDimensionCard = ({
     //   style={{ minWidth: 250 }}
     // >
 
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Col xs={6} lg={4} xl={4}>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className={styles['chart-dimension'] + ' user-select-none'}>
+        <Col xs={6} lg={4} xl={4}>
+            <div className={styles['chart-dimension'] + ' user-select-none'}>
         {/* This is the card header */}
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <div
+                <div
           className={`d-flex flex-row justify-content-between align-items-center ${styles['chart-dimension-header']}`}
         >
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="text-left">
+                    <span className="text-left">
             {dimension.validTypes.map((t: any) => {
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              return <DataTypeIcon key={t} type={t} />
+                            return <DataTypeIcon key={t} type={t} />
               // const DataTypeIcon = dataTypeIcons[t]
               // return (
               //   <span key={t}>
@@ -236,15 +216,12 @@ const ChartDimensionCard = ({
               // )
             })}
           </span>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="text-capitalize text-center">{dimension.name}</span>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span
+                    <span className="text-capitalize text-center">{dimension.name}</span>
+                    <span
             className={styles['dimension-required'] + ' text-right'}
             style={{ opacity: dimension.required ? 1 : 0 }}
           >
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            {dimension.required && <RequiredIcon />}
+                        {dimension.required && <RequiredIcon />}
           </span>
         </div>
 
@@ -260,12 +237,10 @@ const ChartDimensionCard = ({
             dimension.validTypes?.length === 0 ||
             dimension.validTypes?.includes(columnDataType)
 
-          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          const DataTypeIcon = dataTypeIcons[getTypeName(dataTypes[columnId])]
+                    const DataTypeIcon = dataTypeIcons[getTypeName(dataTypes[columnId])]
 
           return (
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <ChartDimensionItem
+                        <ChartDimensionItem
               id={renderId}
               key={renderId}
               index={i}
@@ -291,8 +266,7 @@ const ChartDimensionCard = ({
 
         {/* This is the dropzone */}
         {(dimension.multiple || columnsMappedHere.length === 0) && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <div
+                    <div
             className={classnames('dropzone', styles['dropzone'], {
               [styles['active']]: isOver,
             })}

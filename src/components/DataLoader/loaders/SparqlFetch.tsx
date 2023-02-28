@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import classNames from 'classnames'
-// @ts-expect-error TS(2307): Cannot find module './SparqlFetch.module.scss' or ... Remove this comment to see the full error message
 import S from './SparqlFetch.module.scss'
 import { html, render } from 'lit-html'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'spar... Remove this comment to see the full error message
 import SimpleClient from 'sparql-http-client/SimpleClient'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'spar... Remove this comment to see the full error message
 import { Generator } from 'sparqljs'
 import '@rdfjs-elements/sparql-editor/sparql-editor.js'
 import { SparqlMarker } from '../../../hooks/useDataLoaderUtils/parser'
@@ -52,8 +49,7 @@ export async function fetchData(source: any) {
   )
   const results = await response.json()
   const rows = bindingsToJson(results.head.vars, results.results.bindings)
-  // @ts-expect-error TS(7015): Element implicitly has an 'any' type because index... Remove this comment to see the full error message
-  rows[SparqlMarker] = true
+    rows[SparqlMarker] = true
   return rows
 }
 
@@ -122,38 +118,28 @@ export default function SparqlFetch({
         @parsed=${onQueryParsed}
         @parsing-failed=${onParserFailure}
       ></sparql-editor>`,
-      // @ts-expect-error TS(2345): Argument of type 'undefined' is not assignable to ... Remove this comment to see the full error message
-      node
+            node
     )
   }, [onQueryParsed, onParserFailure, initialQuery])
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className={classNames(S['base-iri-input-here'])}>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <span>Write your SPARQL Endpoint here</span>
+        <>
+            <div className={classNames(S['base-iri-input-here'])}>
+                <span>Write your SPARQL Endpoint here</span>
       </div>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <input
+            <input
         className={classNames('w-100', S['url-input'])}
         value={url}
         onChange={(e) => {
           setUrl(e.target.value)
         }}
       />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className={classNames(S['query-input-here'])}>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <span>Write your query here</span>
+            <div className={classNames(S['query-input-here'])}>
+                <span>Write your query here</span>
       </div>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div ref={editorDomRef} />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className="text-right">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <button
+            <div ref={editorDomRef} />
+            <div className="text-right">
+                <button
           className="btn btn-sm btn-success mt-3"
           disabled={!parsedQuery || !url}
           onClick={onSubmit}
@@ -172,11 +158,9 @@ function bindingsToJson(varNames: any, bindings: any) {
     for (const variable of varNames) {
       const term = binding[variable]
       if (!term) {
-        // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        row[variable] = ''
+                row[variable] = ''
       } else {
-        // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-        row[variable] = term.value
+                row[variable] = term.value
       }
     }
     result.push(row)

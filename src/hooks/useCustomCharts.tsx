@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { sha3_512 } from 'js-sha3'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import difference from 'lodash/difference'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import uniq from 'lodash/uniq'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import find from 'lodash/find'
 import { requireRawChartsFromUrl, NPM_CDN } from './rawRequire'
 import './chart-types'
@@ -61,8 +58,7 @@ function makeFileHash(file: any) {
   return new Promise((resolve) => {
     const reader = new FileReader()
     reader.onload = function (event) {
-      // @ts-expect-error TS(2531): Object is possibly 'null'.
-      resolve(sha3_512(event.target.result))
+            resolve(sha3_512(event.target.result))
     }
     reader.readAsArrayBuffer(file)
   })
@@ -267,8 +263,7 @@ export default function useCustomCharts({ storage = true } = { storage: true }) 
       setCustomCharts(nextCustomCharts)
       if (storage) {
         const cache = await window.caches.open(STORE_NS)
-        // @ts-expect-error TS(2345): Argument of type 'unknown' is not assignable to pa... Remove this comment to see the full error message
-        await cache.put(fileHash, new Response(file))
+                await cache.put(fileHash, new Response(file))
         await storeCustomCharts(nextCustomCharts)
       }
       return nextCustomCharts
@@ -333,8 +328,7 @@ export default function useCustomCharts({ storage = true } = { storage: true }) 
   const removeCustomChart = useCallback(
     async (chart) => {
       const nextCustomCharts = customCharts.filter(
-        // @ts-expect-error TS(2339): Property 'metadata' does not exist on type 'never'... Remove this comment to see the full error message
-        (c) => c.metadata.id !== chart.metadata.id
+                (c) => c.metadata.id !== chart.metadata.id
       )
       setCustomCharts(nextCustomCharts)
       if (storage) {

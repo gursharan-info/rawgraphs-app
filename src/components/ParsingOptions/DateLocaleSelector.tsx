@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import { Dropdown } from 'react-bootstrap'
-// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { localeList } from '../../constants'
 
 export default function DateLocaleSelector({
@@ -20,24 +19,17 @@ export default function DateLocaleSelector({
   )
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <div className="option">
+        <div className="option">
       {title}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Dropdown className="d-inline-block raw-dropdown">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Dropdown.Toggle variant="white" className="">
+            <Dropdown className="d-inline-block raw-dropdown">
+                <Dropdown.Toggle variant="white" className="">
           {value}
         </Dropdown.Toggle>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Dropdown.Menu>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <Dropdown.Header>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <span>
+                <Dropdown.Menu>
+                    <Dropdown.Header>
+                        <span>
               from{' '}
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <a
+                            <a
                 href="https://github.com/d3/d3-time-format/tree/master/locale"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -48,8 +40,7 @@ export default function DateLocaleSelector({
           </Dropdown.Header>
           {Object.keys(localeList).map((d) => {
             return (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <Dropdown.Item key={d} onSelect={() => handleChange(d)}>
+                            <Dropdown.Item key={d} onSelect={() => handleChange(d)}>
                 {d}
               </Dropdown.Item>
             )

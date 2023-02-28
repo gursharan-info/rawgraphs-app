@@ -3,7 +3,6 @@ import {
   getOptionsConfig,
   getDefaultOptionsValues,
   // deserializeProject,
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 } from '@rawgraphs/rawgraphs-core'
 // import HeaderItems from './HeaderItems'
 // import Header from './components/Header'
@@ -15,15 +14,11 @@ import ChartSelector from './components/ChartSelector'
 import DataMapping from './components/DataMapping'
 import ChartPreviewWithOptions from './components/ChartPreviewWIthOptions'
 import Exporter from './components/Exporter'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import find from 'lodash/find'
 import usePrevious from './hooks/usePrevious'
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { serializeProject } from '@rawgraphs/rawgraphs-core'
 import baseCharts from './charts'
-// @ts-expect-error TS(6142): Module './hooks/useSafeCustomCharts' was resolved ... Remove this comment to see the full error message
 import useSafeCustomCharts from './hooks/useSafeCustomCharts'
 import useDataLoader from './hooks/useDataLoader'
 // import isPlainObject from 'lodash/isPlainObject'
@@ -38,23 +33,15 @@ import {
 function App() {
   const [
     customCharts,
-    {
-      // @ts-expect-error TS(2339): Property 'toConfirmCustomChart' does not exist on ... Remove this comment to see the full error message
+    { 
       toConfirmCustomChart,
-      // @ts-expect-error TS(2339): Property 'confirmCustomChartLoad' does not exist o... Remove this comment to see the full error message
       confirmCustomChartLoad,
-      // @ts-expect-error TS(2339): Property 'abortCustomChartLoad' does not exist on ... Remove this comment to see the full error message
       abortCustomChartLoad,
-      // @ts-expect-error TS(2339): Property 'uploadCustomCharts' does not exist on ty... Remove this comment to see the full error message
       uploadCustomCharts,
-      // @ts-expect-error TS(2339): Property 'loadCustomChartsFromUrl' does not exist ... Remove this comment to see the full error message
       loadCustomChartsFromUrl,
-      // @ts-expect-error TS(2339): Property 'loadCustomChartsFromNpm' does not exist ... Remove this comment to see the full error message
       loadCustomChartsFromNpm,
       // importCustomChartFromProject,
-      // @ts-expect-error TS(2339): Property 'removeCustomChart' does not exist on typ... Remove this comment to see the full error message
       removeCustomChart,
-      // @ts-expect-error TS(2339): Property 'exportCustomChart' does not exist on typ... Remove this comment to see the full error message
       exportCustomChart,
     },
   ] = useSafeCustomCharts()
@@ -82,8 +69,7 @@ function App() {
   // console.log(userData)
   console.log(charts)
 
-  // @ts-expect-error TS(2339): Property 'dataset_id' does not exist on type '(def... Remove this comment to see the full error message
-  let { dataset_id } = useSearchParams;
+    let { dataset_id } = useSearchParams;
   console.log(dataset_id)
 
   /* From here on, we deal with viz state */
@@ -99,8 +85,7 @@ function App() {
 
   const columnNames = useMemo(() => {
     if (get(data, 'dataTypes')) {
-      // @ts-expect-error TS(2531): Object is possibly 'null'.
-      return Object.keys(data.dataTypes)
+            return Object.keys(data.dataTypes)
     }
   }, [data])
   console.log(userData)
@@ -112,8 +97,7 @@ function App() {
   const prevColumnNames = usePrevious(columnNames)
   const clearLocalMapping = useCallback(() => {
     if (dataMappingRef.current) {
-      // @ts-expect-error TS(2339): Property 'clearLocalMapping' does not exist on typ... Remove this comment to see the full error message
-      dataMappingRef.current.clearLocalMapping()
+            dataMappingRef.current.clearLocalMapping()
     }
   }, [])
 
@@ -155,8 +139,7 @@ function App() {
         setMapping({})
         clearLocalMapping()
       } else {
-        // @ts-expect-error TS(2339): Property 'join' does not exist on type 'never'.
-        const prevCols = prevColumnNames.join('.')
+                const prevCols = prevColumnNames.join('.')
         const currentCols = columnNames.join('.')
         if (prevCols !== currentCols) {
           setMapping({})
@@ -288,27 +271,20 @@ function App() {
   )
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <div className="App">
+        <div className="App">
       {/* <Header menuItems={HeaderItems} /> */}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <CustomChartWarnModal
+            <CustomChartWarnModal
         toConfirmCustomChart={toConfirmCustomChart}
         confirmCustomChartLoad={confirmCustomChartLoad}
         abortCustomChartLoad={abortCustomChartLoad}
       />
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div className="app-sections">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Section title={`1. Load data`} loading={loading}>
+            <div className="app-sections">
+                <Section title={`1. Load data`} loading={loading}>
           {/* <DataLoader {...dataLoader} hydrateFromProject={importProject} /> */}
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <DataLoader {...dataLoader} />
+                    <DataLoader {...dataLoader} />
         </Section>
         {data && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Section title="2. Choose">
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <CustomChartLoader
               isOpen={isModalCustomChartOpen}
               onClose={toggleModalCustomChart}
@@ -316,7 +292,6 @@ function App() {
               loadCustomChartsFromUrl={loadCustomChartsFromUrl}
               uploadCustomCharts={uploadCustomCharts}
             />
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <ChartSelector
               onAddChartClick={toggleModalCustomChart}
               onRemoveCustomChart={removeCustomChart}
@@ -327,29 +302,22 @@ function App() {
           </Section>
         )}
         {data && currentChart && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <Section title={`3. Selection`} loading={mappingLoading}>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <DataMapping
+                    <Section title={`3. Selection`} loading={mappingLoading}>
+                        <DataMapping
               ref={dataMappingRef}
               dimensions={currentChart.dimensions}
-              // @ts-expect-error TS(2339): Property 'dataTypes' does not exist on type 'never... Remove this comment to see the full error message
-              dataTypes={data.dataTypes}
+                            dataTypes={data.dataTypes}
               mapping={mapping}
               setMapping={setMapping}
             />
           </Section>
         )}
         {data && currentChart && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <Section title="4. Customize">
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <ChartPreviewWithOptions
+                    <Section title="4. Customize">
+                        <ChartPreviewWithOptions
               chart={currentChart}
-              // @ts-expect-error TS(2339): Property 'dataset' does not exist on type 'never'.
-              dataset={data.dataset}
-              // @ts-expect-error TS(2339): Property 'dataTypes' does not exist on type 'never... Remove this comment to see the full error message
-              dataTypes={data.dataTypes}
+                            dataset={data.dataset}
+                            dataTypes={data.dataTypes}
               mapping={mapping}
               visualOptions={visualOptions}
               setVisualOptions={setVisualOptions}
@@ -365,8 +333,7 @@ function App() {
         )} */}
       
       </div>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <ScreenSizeAlert />
+            <ScreenSizeAlert />
     </div>
   )
 }

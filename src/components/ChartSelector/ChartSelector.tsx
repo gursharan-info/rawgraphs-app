@@ -5,7 +5,6 @@ import { Row, Col, Card } from 'react-bootstrap'
 // import { Row, Col, Card, Dropdown } from 'react-bootstrap'
 // import { BsLink, BsPlus } from 'react-icons/bs'
 // import uniq from 'lodash/uniq'
-// @ts-expect-error TS(2307): Cannot find module './ChartSelector.module.scss' o... Remove this comment to see the full error message
 import styles from './ChartSelector.module.scss'
 import { BsFillTrashFill } from 'react-icons/bs'
 
@@ -40,8 +39,7 @@ function ChartSelector({
   //   [availableCharts, currentChart, setCurrentChart]
   // )
 
-  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-  return <>
+    return <>
     {/* <Row>
       <Col className="text-right">
         Show
@@ -69,8 +67,7 @@ function ChartSelector({
         </Dropdown>
       </Col>
     </Row> */}
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <Row>
+        <Row>
       {/* <Col xs={3} className="pt-3">
         {currentChart && (
           <Card className={styles.currentChart}>
@@ -107,16 +104,12 @@ function ChartSelector({
           </Card>
         )}
       </Col> */}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Col>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Row>
+            <Col>
+                <Row>
           {charts.map((d: any, i: any) => {
             return (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <Col xs={4} key={'chart-' + i} className={`p-3`}>
-                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                <Card
+                            <Col xs={4} key={'chart-' + i} className={`p-3`}>
+                                <Card
                   onClick={() => {
                     setCurrentChart(d)
                   }}
@@ -125,24 +118,18 @@ function ChartSelector({
                     [styles.customChart]: !!d.rawCustomChart,
                   })}
                 >
-                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                  <div
+                                    <div
                     className={`h-100 w-25 ${styles.thumbnail}`}
                     style={{ backgroundImage: `url("${d.metadata.icon}")` }}
                   ></div>
-                  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                  <Card.Body className="w-75 px-2 py-3">
-                    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                    <Card.Title className="m-0">
-                      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                      <h2 className="m-0" style={{ whiteSpace: 'nowrap' }}>
+                                    <Card.Body className="w-75 px-2 py-3">
+                                        <Card.Title className="m-0">
+                                            <h2 className="m-0" style={{ whiteSpace: 'nowrap' }}>
                         {d.metadata.name}
                       </h2>
                       {d.rawCustomChart && (
-                        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                        <div>
-                          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                          <button
+                                                <div>
+                                                    <button
                             style={{
                               position: 'absolute',
                               top: -8,
@@ -154,11 +141,9 @@ function ChartSelector({
                               onRemoveCustomChart(d)
                             }}
                           >
-                            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                            <BsFillTrashFill />
+                                                        <BsFillTrashFill />
                           </button>
-                          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                          <small
+                                                    <small
                             style={{
                               maxWidth: '100%',
                               overflow: 'hidden',
@@ -172,10 +157,8 @@ function ChartSelector({
                         </div>
                       )}
                     </Card.Title>
-                    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                    <Card.Subtitle className="m-0">
-                      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                      <h4 className="m-0">
+                                        <Card.Subtitle className="m-0">
+                                            <h4 className="m-0">
                         {d.metadata.categories
                           .join(', ')
                           .charAt(0)

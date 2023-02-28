@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import { map } from 'lodash'
 import './JsonViewer.scss'
 
@@ -58,33 +57,26 @@ const JsonViewerRecursive = ({
 
   if (contextType === 'object' && contextType !== null) {
     return (
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div
+            <div
         className={classes}
         onClick={handleSelect}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
         {contextName && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <span className="property-name">{contextName}</span>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <span className="colon">{': '}</span>
+                    <>
+                        <span className="property-name">{contextName}</span>
+                        <span className="colon">{': '}</span>
           </>
         )}
         {!Array.isArray(context) && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="curly-bracket open-bracket">{'{'}</span>
+                    <span className="curly-bracket open-bracket">{'{'}</span>
         )}
         {Array.isArray(context) && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="square-bracket open-bracket">{'['}</span>
+                    <span className="square-bracket open-bracket">{'['}</span>
         )}
         {map(context, (value: any, property: any) => (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <JsonViewerRecursive
+                    <JsonViewerRecursive
             key={property}
             contextName={Array.isArray(context) ? null : property}
             nestingLevel={nestingLevel + 1}
@@ -95,59 +87,47 @@ const JsonViewerRecursive = ({
           />
         ))}
         {!Array.isArray(context) && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="curly-bracket close-bracket">{'}'}</span>
+                    <span className="curly-bracket close-bracket">{'}'}</span>
         )}
         {Array.isArray(context) && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span className="square-bracket close-bracket">{']'}</span>
+                    <span className="square-bracket close-bracket">{']'}</span>
         )}
       </div>
     );
   } else {
     return (
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div
+            <div
         className={classes}
         onClick={handleSelect}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
         {contextName && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <span className="property-name">{contextName}</span>
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <span className="colon">{': '}</span>
+                    <>
+                        <span className="property-name">{contextName}</span>
+                        <span className="colon">{': '}</span>
           </>
         )}
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        {context === null && <span className="scalar-value">null</span>}
+                {context === null && <span className="scalar-value">null</span>}
         {context !== null && (
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <>
+                    <>
             {(contextType === 'bigint' || contextType === 'number') && (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <span className="scalar-value scalar-value-numeric">
+                            <span className="scalar-value scalar-value-numeric">
                 {context.toString()}
               </span>
             )}
             {contextType === 'string' && (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <span className="scalar-value scalar-value-string">
+                            <span className="scalar-value scalar-value-string">
                 "{context.toString()}"
               </span>
             )}
             {contextType === 'boolean' && (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <span className="scalar-value scalar-value-bool">
+                            <span className="scalar-value scalar-value-bool">
                 "{context ? 'true' : 'false'}"
               </span>
             )}
             {contextType === 'undefined' && (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <span className="scalar-value scalar-value-undefined">
+                            <span className="scalar-value scalar-value-undefined">
                 undefined
               </span>
             )}
@@ -164,10 +144,8 @@ const JsonViewer = ({
   onSelect
 }: any) => {
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <pre className="json-viewer">
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <JsonViewerRecursive
+        <pre className="json-viewer">
+            <JsonViewerRecursive
         contextName={null}
         nestingLevel={0}
         context={context}

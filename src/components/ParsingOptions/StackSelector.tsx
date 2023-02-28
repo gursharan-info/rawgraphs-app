@@ -18,31 +18,25 @@ export default function StackSelector({
   )
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <div className="option">
+        <div className="option">
       {title}
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Dropdown className="d-inline-block raw-dropdown">
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Dropdown.Toggle
+            <Dropdown className="d-inline-block raw-dropdown">
+                <Dropdown.Toggle
           variant="white"
           className="truncate-160px"
           disabled={list.length === 0}
         >
           {value ? value : 'Column'}
         </Dropdown.Toggle>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Dropdown.Menu>
+                <Dropdown.Menu>
           {value && (
-            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-            <Dropdown.Item onSelect={() => handleChange(null)}>
+                        <Dropdown.Item onSelect={() => handleChange(null)}>
               {'Do not stack'}
             </Dropdown.Item>
           )}
           {Object.keys(list).map((d) => {
             return (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <Dropdown.Item key={d} onSelect={() => handleChange(d)}>
+                            <Dropdown.Item key={d} onSelect={() => handleChange(d)}>
                 {d}
               </Dropdown.Item>
             )

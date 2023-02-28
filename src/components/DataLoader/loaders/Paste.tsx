@@ -6,8 +6,7 @@ export default function Paste({
   setLoadingError
 }: any) {
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <textarea
+        <textarea
       value={userInput}
       onChange={(e) => {
         const str = e.target.value

@@ -24,10 +24,8 @@ export function onChartRendered(chartMetadata: any) {
   }
   prevChartIdRendered = chartMetadata.id
 
-  // @ts-expect-error TS(2339): Property 'gtag' does not exist on type 'Window & t... Remove this comment to see the full error message
-  if (typeof window.gtag === 'function') {
-    // @ts-expect-error TS(2339): Property 'gtag' does not exist on type 'Window & t... Remove this comment to see the full error message
-    window.gtag('event', 'chart-render', {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', 'chart-render', {
       event_category: chartMetadata.id,
     })
   }
@@ -38,10 +36,8 @@ export function onChartRendered(chartMetadata: any) {
  * @param {string} format
  */
 export function onChartExported(chartMetadata: any, format: any) {
-  // @ts-expect-error TS(2339): Property 'gtag' does not exist on type 'Window & t... Remove this comment to see the full error message
-  if (typeof window.gtag === 'function') {
-    // @ts-expect-error TS(2339): Property 'gtag' does not exist on type 'Window & t... Remove this comment to see the full error message
-    window.gtag('event', 'chart-export', {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', 'chart-export', {
       event_category: chartMetadata.id,
       event_label: format,
     })

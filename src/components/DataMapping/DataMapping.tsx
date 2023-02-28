@@ -6,21 +6,14 @@ import React, {
   useState,
 } from 'react'
 import { Row, Col } from 'react-bootstrap'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import map from 'lodash/map'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
-// @ts-expect-error TS(6142): Module './ColumnCard' was resolved to '/Users/gurs... Remove this comment to see the full error message
 import ColumnCard from './ColumnCard'
-// @ts-expect-error TS(6142): Module './ChartDimensionCard' was resolved to '/Us... Remove this comment to see the full error message
 import ChartDimensionCard from './ChartDimensionCard'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import get from 'lodash/get'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import uniqueId from 'lodash/uniqueId'
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'arra... Remove this comment to see the full error message
 import arrayInsert from 'array-insert'
-// @ts-expect-error TS(7016): Could not find a declaration file for module '@raw... Remove this comment to see the full error message
 import { getDefaultDimensionAggregation } from '@rawgraphs/rawgraphs-core'
 
 function removeIndex(mapping: any, i: any) {
@@ -56,11 +49,9 @@ function handleReplaceLocalMapping(
   multiple = false
 ) {
   const removedItem = {}
-  // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
-  removedItem.aggregation =
+    removedItem.aggregation =
     prev[fromDimension]?.config?.aggregation?.[fromIndex]
-  // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
-  removedItem.value = prev[fromDimension].value[fromIndex]
+    removedItem.value = prev[fromDimension].value[fromIndex]
 
   let moveFn = multiple ? arrayInsert : arrayReplace
 
@@ -68,22 +59,18 @@ function handleReplaceLocalMapping(
   const toDimensionMapping = {
     ...prevToMapping,
     ids: moveFn(prevToMapping.ids ?? [], toIndex, nextId),
-    // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
-    value: moveFn(prevToMapping.value ?? [], toIndex, removedItem.value),
+        value: moveFn(prevToMapping.value ?? [], toIndex, removedItem.value),
   }
 
   const dimension = dimensions[toDimension]
   if (dimensions.aggregation) {
     let newAggregation
-    // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
-    if (removedItem.aggregation) {
-      // @ts-expect-error TS(2339): Property 'aggregation' does not exist on type '{}'... Remove this comment to see the full error message
-      newAggregation = removedItem.aggregation
+        if (removedItem.aggregation) {
+            newAggregation = removedItem.aggregation
     } else {
       newAggregation = getDefaultDimensionAggregation(
         dimension,
-        // @ts-expect-error TS(2339): Property 'value' does not exist on type '{}'.
-        dataTypes[removedItem.value]
+                dataTypes[removedItem.value]
       )
     }
     toDimensionMapping.config = {
@@ -194,18 +181,13 @@ function DataMapping({
   }))
 
   return (
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <DndProvider backend={HTML5Backend}>
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Row>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Col xs={3}>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <h5 className="text-uppercase">Dimensions</h5>
+        <DndProvider backend={HTML5Backend}>
+            <Row>
+                <Col xs={3}>
+                    <h5 className="text-uppercase">Dimensions</h5>
           {map(dataTypes, (dataType: any, columnName: any) => {
             return (
-              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-              <ColumnCard
+                            <ColumnCard
                 key={columnName}
                 dimensionName={columnName}
                 dimensionType={dataType}
@@ -215,19 +197,15 @@ function DataMapping({
             )
           })}
         </Col>
-        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-        <Col>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <h5 className="text-uppercase">Chart Variables</h5>
-          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <Row
+                <Col>
+                    <h5 className="text-uppercase">Chart Variables</h5>
+                    <Row
             className="sticky-top"
             style={{ top: 'calc(var(--header-height) + 16px)' }}
           >
             {dimensions.map((d: any) => {
               return (
-                // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                <ChartDimensionCard
+                                <ChartDimensionCard
                   key={d.id}
                   dimension={d}
                   dataTypes={dataTypes}

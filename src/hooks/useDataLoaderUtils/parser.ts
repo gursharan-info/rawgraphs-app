@@ -1,6 +1,4 @@
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'd3'.... Remove this comment to see the full error message
 import { dsvFormat } from 'd3'
-// @ts-expect-error TS(6142): Module '../../constants' was resolved to '/Users/g... Remove this comment to see the full error message
 import { DefaultSeparator, separatorsList } from '../../constants'
 
 function JsonParser(dataString: any) {
@@ -112,8 +110,7 @@ export function normalizeJsonArray(jsonArray: any) {
       if (Array.isArray(iterateElement)) {
         const tmp = {}
         iterateElement.forEach((item, i) => {
-          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          tmp[`Column ${i + 1}`] = item
+                    tmp[`Column ${i + 1}`] = item
         })
         iterateElement = tmp
       }
@@ -125,19 +122,16 @@ export function normalizeJsonArray(jsonArray: any) {
         const value = iterateElement[property]
         const valueType = typeof value
         if (Array.isArray(value)) {
-          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          outElement[property] = value.filter(isScalarType).join(' ')
+                    outElement[property] = value.filter(isScalarType).join(' ')
         } else if (valueType === 'object' && valueType !== null) {
           for (const nestedProperty in value) {
             const nestedValue = value[nestedProperty]
             if (isScalarType(nestedValue)) {
-              // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-              outElement[`${property}.${nestedProperty}`] = nestedValue
+                            outElement[`${property}.${nestedProperty}`] = nestedValue
             }
           }
         } else if (isScalarType(value)) {
-          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-          outElement[property] = value
+                    outElement[property] = value
         }
       }
       return outElement
