@@ -21,7 +21,9 @@ export default function UrlFetch({
   const location = useLocation();
   let {dataset_id} = (Object.fromEntries(new URLSearchParams(location.search)));
 
-  const [url, setUrl] = useState("http://10.0.96.105:5000/api/3/action/datastore_search?limit=100000&resource_id="+dataset_id)
+  // const [url, setUrl] = useState("http://10.0.96.105:5000/api/3/action/datastore_search?limit=100000&resource_id="+dataset_id)
+  const [url, setUrl] = useState("https://ckan.indiadataportal.com/api/3/action/datastore_search?limit=100000&resource_id="+dataset_id)
+  // const [url, setUrl] = useState("https://raw.githubusercontent.com/gursharan-info/placeholder-data/main/csr.json")
   // const [url, setUrl] = useState(initialState?.url)
   console.log(url)
   const fetchUrl = useCallback(
