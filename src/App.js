@@ -87,6 +87,7 @@ function App() {
     if (get(data, 'dataTypes')) {
       return Object.keys(data.dataTypes)
     }
+
   }, [data])
   console.log(userData)
   console.log(userDataType)
@@ -146,6 +147,7 @@ function App() {
           clearLocalMapping()
         }
       }
+      // const dimensionList = Array.from(new Set(data.dataset.filter(e => e.resources).map(e => e.resources).flat().map(e=> e.frequency)) );
     }
   }, [columnNames, prevColumnNames, clearLocalMapping])
   console.log(columnNames)
@@ -312,8 +314,13 @@ function App() {
             />
           </Section>
         )}
+        {data && (
+          <Section title={`4. Filter Dimensions`} loading={mappingLoading}>
+            
+          </Section>
+        )}
         {data && currentChart && (
-          <Section title="4. Customize">
+          <Section title="5. Customize">
             <ChartPreviewWithOptions
               chart={currentChart}
               dataset={data.dataset}
